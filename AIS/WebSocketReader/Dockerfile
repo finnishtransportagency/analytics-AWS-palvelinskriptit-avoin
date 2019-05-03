@@ -9,12 +9,14 @@ RUN go get github.com/finnishtransportagency/analytics-AWS-palvelinskriptit-avoi
 WORKDIR $GOPATH/src/github.com/finnishtransportagency/analytics-AWS-palvelinskriptit-avoin/AIS/WebSocketReader/
 COPY . .
 # Fetch dependencies.
+RUN go get -d -v
 # RUN go mod download this might be useful later
 # Build the binary 
 RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/AISSocketReader
 ##build a small image
 FROM scratch
 # Import from builder.
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /etc/passwd /etc/passwd
 # Copy static executable
