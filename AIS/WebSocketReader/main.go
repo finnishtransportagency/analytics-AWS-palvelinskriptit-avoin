@@ -199,7 +199,6 @@ func dumpToS3(buf bytes.Buffer, path string) {
 func messageprosessor(byteMessage []byte, test bool) {
 	structuredData := stringMessageToStruct(byteMessage)         // 1
 	rawData, parsedData := extractDataFromStruct(structuredData) // 2
-	log.Println("prosessor:", parsedData)
 	log.Println(len(parsedData))
 	if len(rawData) > 0 {
 		go rawDataprocessLogic(rawData, test) //3.1, 3.3
