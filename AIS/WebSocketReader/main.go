@@ -199,6 +199,7 @@ func dumpToS3(buf bytes.Buffer, path string) {
 func messageprosessor(byteMessage []byte, test bool) {
 	structuredData := stringMessageToStruct(byteMessage)         // 1
 	rawData, parsedData := extractDataFromStruct(structuredData) // 2
+	log.Println("prosessor:", parsedData)
 	log.Println(len(parsedData))
 	if len(rawData) > 0 {
 		go rawDataprocessLogic(rawData, test) //3.1, 3.3
@@ -290,13 +291,13 @@ func getsplittedFloatValue(keyvaluepair string) (float32, error) {
 	var splittedpair = strings.Split(keyvaluepair, "§")
 	if len(splittedpair) != 2 {
 		log.Println("failed to parse float value")
-		return 0, errors.New("failed to parse float value")
+		return 0, errors.New("Fatal: to parse float value")
 	}
 	longstring := splittedpair[1]
 	longval, err := strconv.ParseFloat(longstring, 32)
 	if err != nil {
 		log.Println("failed to convert float")
-		return 0, errors.New("failed to parse float value")
+		return 0, errors.New("Fatal: failed to parse float value")
 
 	} else {
 		return float32(longval), nil
@@ -307,7 +308,7 @@ func getsplittedFloatValue(keyvaluepair string) (float32, error) {
 func getsplittedStringValue(keyvaluepair string) (string, error) {
 	var splittedpair = strings.Split(keyvaluepair, "§")
 	if len(splittedpair) != 2 {
-		return "", errors.New("Failed to parse String")
+		return "", errors.New("Fatal:Failed to parse String")
 	}
 	return splittedpair[1], nil
 }
@@ -771,27 +772,34 @@ func startConnect() {
 	if err != nil {
 		log.Fatal("dial:", err)
 	}
+	timeoutDuration := 1 * time.Minute
+
 	defer c.Close()
 	done := make(chan struct{})
+	mux := sync.Mutex{}
 	go func() {
 		defer close(done)
-		//c.SetReadLimit(maxMessageSize)
-		//c.SetReadDeadline(time.Now().Add(pongWait))
-		//c.SetPongHandler(func(string) error { c.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 		for {
+			c.SetReadDeadline(time.Now().Add(timeoutDuration))
 			_, message, err := c.ReadMessage()
 			if err != nil {
 				log.Println("read:", err)
+				mux.Unlock()
 				return
 			}
 			go messageprosessor(message, false) //sends message and informs messageinsert is not a test
 			//log.Printf("recv: %s", message) //debug
 		}
 	}()
-	mux := sync.Mutex{}
 	mux.Lock()
 	mux.Lock()
-	//time.Sleep(3 * time.Second) //for testing only executes 30 seconds should be changed to inifite or if signal is received
-	initDumpToS3(true)
-	initDumpToS3(false)
+	//halts writes to lists
+	parsedlock.Lock()
+	lock.Lock()
+	//time.Sleep(3 * time.Second) //for testing. exits after given time
+	initDumpToS3(true)  //sends parsed data to S3 bucket
+	initDumpToS3(false) // /sends raw data to S3 bucket
+	//and unlocks for the loop
+	parsedlock.Unlock()
+	lock.Unlock()
 }
