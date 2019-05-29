@@ -154,7 +154,6 @@ func compressGZ(w io.Writer, data []byte) error {
 }
 
 func initDumpToS3(parsed bool) {
-	//log.Println("initing dump parsed:", parsed)
 	var buf bytes.Buffer
 	var JsonbyteDump []byte
 	var err error
@@ -199,8 +198,6 @@ func dumpToS3(buf bytes.Buffer, path string) {
 func messageprosessor(byteMessage []byte, test bool) {
 	structuredData := stringMessageToStruct(byteMessage)         // 1
 	rawData, parsedData := extractDataFromStruct(structuredData) // 2
-	log.Println("prosessor:", parsedData)
-	log.Println(len(parsedData))
 	if len(rawData) > 0 {
 		go rawDataprocessLogic(rawData, test) //3.1, 3.3
 	}
@@ -244,8 +241,6 @@ func rawDataprocessLogic(rawData []string, test bool) bool {
 	defer lock.Unlock()
 	var newStrucutredRawMessage rawMessage = rawMessageObjectCreator(rawData)
 	rawList.Messages.MessagesWithStamp = append(rawList.Messages.MessagesWithStamp, newStrucutredRawMessage)
-	//fmt.Printf("len=%d cap=%d %v\n", len(rawList.Messages.MessagesWithStamp), cap(rawList.Messages.MessagesWithStamp), rawList.Messages.MessagesWithStamp)
-	log.Println("RawListSize", len(rawList.Messages.MessagesWithStamp))
 	if len(rawList.Messages.MessagesWithStamp) >= messagelimit {
 		var parsed = false
 		if !test {
@@ -263,7 +258,6 @@ func parsedDataprocessLogic(parsedData string, test bool) bool {
 	defer parsedlock.Unlock()
 	var newStrucutredParsedMessage parsedMessage = ParsedMessageObjectConverter(parsedData)
 	parsedList.Messages.ParsedStructMessages = append(parsedList.Messages.ParsedStructMessages, newStrucutredParsedMessage)
-	log.Println("ParsedListSize", len(parsedList.Messages.ParsedStructMessages))
 	if len(parsedList.Messages.ParsedStructMessages) >= messagelimit {
 		var parsed = true
 		if !test {
