@@ -777,9 +777,10 @@ func startConnect() {
 			c.SetReadDeadline(time.Now().Add(timeoutDuration))
 			_, message, err := c.ReadMessage()
 			if err != nil {
-				log.Println("read:", err)
-				mux.Unlock()
-				return
+				log.Fatal("read:", err)
+				time.Sleep(5 * time.Second) //wait before dumping everything and restarting
+				initDumpToS3(true)          //sends parsed data to S3 bucket
+				initDumpToS3(false)         // /sends raw data to S3 bucket
 			}
 			go messageprosessor(message, false) //sends message and informs messageinsert is not a test
 			//log.Printf("recv: %s", message) //debug
