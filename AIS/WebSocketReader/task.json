@@ -1,0 +1,9 @@
+{
+    "family": "AIS-Task-Definition",
+    "containerDefinitions": [{
+      "name": "AIS",
+      "essential": true,
+      "image": "%ECR_IMAGE%",
+      "memoryReservation": 1024
+    }]
+  }
