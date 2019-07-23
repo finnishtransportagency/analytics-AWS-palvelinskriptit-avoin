@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -20,6 +21,20 @@ func TestGetDimensions(t *testing.T) {
 	if actual != expected || err != nil {
 		t.Errorf("ship dimensions parsing not what expected")
 		log.Println(keyvaluepair, expected, actual)
+	}
+}
+
+func TestStoragePathAndFileNamingParsed(t *testing.T) {
+	var filename = StoragePathAndFileNaming(true)
+	if !strings.Contains(filename, "parsed") {
+		t.Errorf("did not match")
+	}
+}
+
+func TestStoragePathAndFileNamingParsedRaw(t *testing.T) {
+	var filename = StoragePathAndFileNaming(false)
+	if strings.Contains(filename, "parsed") {
+		t.Errorf("did not match")
 	}
 }
 
@@ -117,8 +132,6 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	expectedMessageObject.GNSSAltitude = &GNSSAltitude
 
 	actual := ParsedMessageObjectConverter(message)
-
-	log.Println(*actual.HexState, expectedMessageObject.HexState)
 
 	if reflect.DeepEqual(actual, expectedMessageObject) {
 		t.Errorf("did not match")
