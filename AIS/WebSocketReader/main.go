@@ -30,13 +30,13 @@ import (
 //var addr = flag.String("addr", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data")
 var rawList = rawStructList{}
 var parsedList = parsedStructList{}
-var s3bucket string = "aistestbucket"
+var s3bucket = "aistestbucket"
 var lock = sync.Mutex{}
 var parsedlock = sync.Mutex{}
-var uusername string = "user"
-var upassword string = "pass"
+var uusername = "user"
+var upassword = "pass"
 var messagelimit = 30000
-var bucket_region = "eu-central-1"
+var bucketRegion = "eu-central-1"
 var host = "host"
 
 const errorfloat = 1000000
@@ -64,15 +64,17 @@ type rawMessage struct {
 
 type parsedStructList struct {
 	Messages struct {
-		ParsedStructMessages []parsedMessage `json:"Messages"`
+		ParsedStructMessages []ParsedMessage `json:"Messages"`
 	} `json:"AISParsedmessages"`
 }
 
-//Remember these have to start with uppercase or go wont export them to JSON
-
-type parsedMessage struct {
+/*
+ParsedMessage contains all known attributes of AIS data
+*/
+type ParsedMessage struct {
+	//Remember these have to start with uppercase or go wont export them to JSON
 	HexState    *string         `json:"Communication state in hex,omitempty"`
-	SDimension  *shipDimensions `json:"Dimension of ship reference for position,omitempty"`
+	SDimension  *ShipDimensions `json:"Dimension of ship reference for position,omitempty"`
 	ETA         *int            `json:"ETA [MMDDHHmm],omitempty"`
 	Longitude   *float32        `json:"Longitude,omitempty"`
 	Latitude    *float32        `json:"Latitude,omitempty"`
@@ -114,7 +116,11 @@ type parsedMessage struct {
 	MPSD         *float32 `json:"Maximum present static draught,omitempty"`
 	GNSSAltitude *int     `json:"Altitude (GNSS),omitempty"`
 }
-type shipDimensions struct {
+
+/*
+ShipDimensions contains A,B,C,D dimensions from AIS data
+*/
+type ShipDimensions struct {
 	ADim int `json:"A"`
 	BDim int `json:"B"`
 	CDim int `json:"C"`
@@ -131,12 +137,12 @@ type aISData struct {
 }
 
 /*
-	Generates S3 filepath for parsed and raw data depending on bool value. Path also includes date format and filename includes current time in nanoseconds, random hex and AIS.JSON.GZ since data will be compressed
+StoragePathAndFileNaming generates S3 filepath for parsed and raw data depending on bool value. Path also includes date format and filename includes current time in nanoseconds, random hex and AIS.JSON.GZ since data will be compressed
 */
 func StoragePathAndFileNaming(parsed bool) string {
 	var s3prefix string
 	currentTime := time.Now()
-	var dateSaltprefix string = currentTime.Format("2006/01/02") + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + randomHex() + "AIS.json.gz"
+	var dateSaltprefix = currentTime.Format("2006/01/02") + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + randomHex() + "AIS.json.gz"
 	if parsed == true {
 		s3prefix = "parsed/" + dateSaltprefix
 	} else {
@@ -173,7 +179,7 @@ func initDumpToS3(parsed bool) {
 }
 func dumpToS3(buf bytes.Buffer, path string) {
 	log.Println("Starting to dump")
-	s, err := session.NewSession(&aws.Config{Region: aws.String(bucket_region)})
+	s, err := session.NewSession(&aws.Config{Region: aws.String(bucketRegion)})
 	uploader := s3manager.NewUploader(s)
 	if err != nil {
 		log.Println(err)
@@ -239,7 +245,7 @@ raw data is added to slice (golang array) inside lock so only on thread can add 
 func rawDataprocessLogic(rawData []string, test bool) bool {
 	lock.Lock()
 	defer lock.Unlock()
-	var newStrucutredRawMessage rawMessage = rawMessageObjectCreator(rawData)
+	var newStrucutredRawMessage = rawMessageObjectCreator(rawData)
 	rawList.Messages.MessagesWithStamp = append(rawList.Messages.MessagesWithStamp, newStrucutredRawMessage)
 	if len(rawList.Messages.MessagesWithStamp) >= messagelimit {
 		var parsed = false
@@ -256,7 +262,7 @@ func rawDataprocessLogic(rawData []string, test bool) bool {
 func parsedDataprocessLogic(parsedData string, test bool) bool {
 	parsedlock.Lock()
 	defer parsedlock.Unlock()
-	var newStrucutredParsedMessage parsedMessage = ParsedMessageObjectConverter(parsedData)
+	var newStrucutredParsedMessage = ParsedMessageObjectConverter(parsedData)
 	parsedList.Messages.ParsedStructMessages = append(parsedList.Messages.ParsedStructMessages, newStrucutredParsedMessage)
 	if len(parsedList.Messages.ParsedStructMessages) >= messagelimit {
 		var parsed = true
@@ -270,13 +276,12 @@ func parsedDataprocessLogic(parsedData string, test bool) bool {
 	return false
 }
 
-/**
-Converts
+/*
+ParsedMessageObjectConverter converts string to Parsedmessage object
 */
-
-func ParsedMessageObjectConverter(parsedData string) parsedMessage {
+func ParsedMessageObjectConverter(parsedData string) ParsedMessage {
 	var splittedData = strings.Split(parsedData, "|")
-	var newParsedMessage = parsedMessage{}
+	var newParsedMessage = ParsedMessage{}
 	newParsedMessage = matchingloop(newParsedMessage, splittedData)
 	return newParsedMessage
 }
@@ -292,10 +297,8 @@ func getsplittedFloatValue(keyvaluepair string) (float32, error) {
 	if err != nil {
 		log.Println("failed to convert float")
 		return 0, errors.New("Fatal: failed to parse float value")
-
-	} else {
-		return float32(longval), nil
 	}
+	return float32(longval), nil
 
 }
 
@@ -310,7 +313,7 @@ func getsplittedStringValue(keyvaluepair string) (string, error) {
 //Call sign
 //maybe if _, err := rand.Read(bytes); err != nil {
 //// remember try catch this
-func matchingloop(newMessage parsedMessage, splitted []string) parsedMessage {
+func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 	for _, keyvaluepair := range splitted {
 		//Strings
 		if strings.Contains(keyvaluepair, "Communication state in hex") {
@@ -599,14 +602,13 @@ func matchingloop(newMessage parsedMessage, splitted []string) parsedMessage {
 
 //AIS version indicator
 
-/**
-splits keyvalue pair that contains a,b,c,d info of the vessel
+/*
+GetDimensions splits keyvalue pair that contains a,b,c,d info of the vessel
 second split splits a,b,c,d to their own pairs
 which we try to match and import to ships dimension structure and return it
 */
-
-func GetDimensions(keyvaluepair string) (shipDimensions, error) {
-	var newDimensions = shipDimensions{}
+func GetDimensions(keyvaluepair string) (ShipDimensions, error) {
+	var newDimensions = ShipDimensions{}
 	var splittedpair = strings.Split(keyvaluepair, "§")
 	if len(splittedpair) != 2 {
 		return newDimensions, errors.New("failed to split dimension keyvalue pair")
