@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Script to get current task defintion, and based on that we add new ecr image to old template and remove attributes that are not needed, then we send new task info, get new revisio number from output and update service
+#Script to get current task defintion, and based on that add new ecr image address to old template and remove attributes that are not needed, then we send new task definition, get new revisio number from output and update service
 set -e
 ECR_IMAGE="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${CODEBUILD_RESOLVED_SOURCE_VERSION}"
 TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_FAMILY" --region "$AWS_DEFAULT_REGION")
