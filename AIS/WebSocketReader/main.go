@@ -323,7 +323,7 @@ func getsplittedStringKey(keyvaluepair string) (string, error) {
 	if len(splittedpair[0]) > 0 {
 		return splittedpair[0], nil
 	}
-	return "", errors.New("Fatal:Failed to parse key-value")
+	return "", errors.New("Fatal:Failed to parse key-value" + keyvaluepair)
 }
 
 //Call sign
@@ -334,7 +334,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 
 		var key, errk = getsplittedStringKey(keyvaluepair)
 		if errk != nil {
-			log.Println("Fatal error: Content broken json")
+			log.Println("Fatal error: Content broken json ", keyvaluepair)
 			break
 		}
 		switch key {
