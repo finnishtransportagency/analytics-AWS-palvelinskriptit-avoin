@@ -45,8 +45,8 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	dimensions.DDim = 5
 
 	var message = "Communication state in hex§hex|Dimension of ship/reference for position§A=8,B=28,C=4,D=5|ETA [MMDDHHmm]§10|Longitude§24.5|Latitude§65.3|Name§name|Destination§valhalla|Vendor ID in hex§hexid|Altitude sensor§2|Assigned mode flag§3|" +
-		"Class B band flag§4|Class B display flag§5|Class B DSC flag§6|Class B Message 22 flag§7|Class B unit flag§8|Communication state selector§9|DTE§10|Navigational status§11|Part number§12|Position accuracy§13|Position latency§14|RAIM-flag§15|Special manoeuvre indicator§16" +
-		"|Type of electronic position fixing device§17|Type of ship and cargo type§18|Call sign§sign|AIS version indicator§20|Message ID§21|Repeat indicator§22|Spare§28|IMO number§23|Ext_timestamp§24|Time stamp§25|User ID§26|" +
+		"Class B band flag§4|Class B display flag§5|Class B DSC flag§6|Class B Message 22 flag§7|Class B unit flag§8|Communication state selector flag§9|DTE§10|Navigational status§11|Part number§12|Position accuracy§13|Position latency§14|RAIM-flag§15|Special manoeuvre indicator§16" +
+		"|Type of electronic position fixing device§17|Type of ship and cargo type§18|Call sign§sign|AIS version indicator§20|Message ID§21|Repeat indicator§22|Spare§28|Spare (2)§3|IMO number§23|Ext_timestamp§24|Time stamp§25|User ID§26|" +
 		"True heading§13.2|COG§13.3|SOG§13.4|Rate of turn ROTAIS§-128|Maximum present static draught§13.5|Altitude (GNSS)§27"
 	var expectedMessageObject = ParsedMessage{}
 	var HexState = "hex"
@@ -79,6 +79,7 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	var MessageID = 21
 	var Repeati = 22
 	var Spare = 28
+	var Spare2 = 3
 	var IMONumber int64 = 23
 	var EtimeStamp int64 = 24
 	var TimeStamp int64 = 25
@@ -120,6 +121,7 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	expectedMessageObject.MessageID = &MessageID
 	expectedMessageObject.Repeati = &Repeati
 	expectedMessageObject.Spare = &Spare
+	expectedMessageObject.Spare2 = &Spare2
 	expectedMessageObject.IMONumber = &IMONumber
 	expectedMessageObject.EtimeStamp = &EtimeStamp
 	expectedMessageObject.TimeStamp = &TimeStamp
@@ -139,7 +141,7 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 
 	var actualbytedump, _ = json.Marshal(actual)
 
-	var expstring = "{\"Communication state in hex\":\"hex\",\"Dimension of ship reference for position\":{\"A\":8,\"B\":28,\"C\":4,\"D\":5},\"ETA [MMDDHHmm]\":10,\"Longitude\":24.5,\"Latitude\":65.3,\"Name\":\"name\",\"Destination\":\"valhalla\",\"Vendor ID in hex\":\"hexid\",\"Altitude sensor\":2,\"Assigned mode flag\":3,\"Class B band flag\":4,\"Class B display flag\":5,\"Class B DSC flag\":6,\"Class B Message 22 flag\":7,\"Class B unit flag\":8,\"Communication state selector\":9,\"DTE\":10,\"Navigational status\":11,\"Part number\":12,\"Position accuracy\":13,\"Position latency\":14,\"RAIM-flag\":15,\"Special manoeuvre indicator\":16,\"Type of electronic position fixing device\":17,\"Type of ship and cargo type\":18,\"Call sign\":\"sign\",\"AIS Version\":20,\"Message ID\":21,\"Repeat indicator\":22,\"Spare\":28,\"IMO number\":23,\"Ext_timestamp\":24,\"Time stamp\":25,\"User ID\":26,\"True heading\":13.2,\"COG\":13.3,\"SOG\":13.4,\"Rate of Turn ROTAIS\":-128,\"Maximum present static draught\":13.5,\"Altitude (GNSS)\":27}"
+	var expstring = "{\"Communication state in hex\":\"hex\",\"Dimension of ship reference for position\":{\"A\":8,\"B\":28,\"C\":4,\"D\":5},\"ETA [MMDDHHmm]\":10,\"Longitude\":24.5,\"Latitude\":65.3,\"Name\":\"name\",\"Destination\":\"valhalla\",\"Vendor ID in hex\":\"hexid\",\"Altitude sensor\":2,\"Assigned mode flag\":3,\"Class B band flag\":4,\"Class B display flag\":5,\"Class B DSC flag\":6,\"Class B Message 22 flag\":7,\"Class B unit flag\":8,\"Communication state selector flag\":9,\"DTE\":10,\"Navigational status\":11,\"Part number\":12,\"Position accuracy\":13,\"Position latency\":14,\"RAIM-flag\":15,\"Special manoeuvre indicator\":16,\"Type of electronic position fixing device\":17,\"Type of ship and cargo type\":18,\"Call sign\":\"sign\",\"AIS Version\":20,\"Message ID\":21,\"Repeat indicator\":22,\"Spare\":28,\"Spare (2)\":3,\"IMO number\":23,\"Ext_timestamp\":24,\"Time stamp\":25,\"User ID\":26,\"True heading\":13.2,\"COG\":13.3,\"SOG\":13.4,\"Rate of Turn ROTAIS\":-128,\"Maximum present static draught\":13.5,\"Altitude (GNSS)\":27}"
 	var actstring = string(actualbytedump)
 
 	if expstring != actstring {
