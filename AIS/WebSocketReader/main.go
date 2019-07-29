@@ -314,7 +314,7 @@ func getsplittedStringValue(keyvaluepair string) (string, error) {
 	if len(splittedpair[1]) > 0 {
 		return splittedpair[1], nil
 	}
-	return "", errors.New("Fatal:Failed to parse String")
+	return "", errors.New("Fatal:Failed to parse String " + keyvaluepair)
 
 }
 
