@@ -89,7 +89,7 @@ type ParsedMessage struct {
 	CBDSCFlag        *int `json:"Class B DSC flag,omitempty"`
 	CBMessageFlag    *int `json:"Class B Message 22 flag,omitempty"`
 	CBUnitFlag       *int `json:"Class B unit flag,omitempty,omitempty"`
-	ComStateSelector *int `json:"Communication state selector,omitempty"`
+	ComStateSelector *int `json:"Communication state selector flag,omitempty"`
 	DTE              *int `json:"DTE,omitempty"`
 	Nstatus          *int `json:"Navigational status,omitempty"`
 	Pnumber          *int `json:"Part number,omitempty"`
@@ -105,6 +105,7 @@ type ParsedMessage struct {
 	MessageID    *int     `json:"Message ID,omitempty"`
 	Repeati      *int     `json:"Repeat indicator,omitempty"`
 	Spare        *int     `json:"Spare,omitempty"`
+	Spare2       *int     `json:"Spare (2),omitempty"`
 	IMONumber    *int64   `json:"IMO number,omitempty"`
 	EtimeStamp   *int64   `json:"Ext_timestamp,omitempty"`
 	TimeStamp    *int64   `json:"Time stamp,omitempty"`
@@ -485,7 +486,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			} else {
 				newMessage.CBUnitFlag = &iValue
 			}
-		case "Communication state selector":
+		case "Communication state selector flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
@@ -578,6 +579,13 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 				log.Println("Fatal:", err)
 			} else {
 				newMessage.Spare = &iValue
+			}
+		case "Spare (2)":
+			iValue, err := getsplittedIntegerValue(keyvaluepair)
+			if err != nil {
+				log.Println("Fatal:", err)
+			} else {
+				newMessage.Spare2 = &iValue
 			}
 		case "Type of ship and cargo type":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
