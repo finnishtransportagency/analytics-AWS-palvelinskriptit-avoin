@@ -290,7 +290,7 @@ ParsedMessageObjectConverter converts string to Parsedmessage object
 func ParsedMessageObjectConverter(parsedData string) ParsedMessage {
 	var splittedData = strings.Split(parsedData, "|")
 	var newParsedMessage = ParsedMessage{}
-	newParsedMessage = matchingloop(newParsedMessage, splittedData)
+	newParsedMessage = matchingloop(newParsedMessage, splittedData, parsedData)
 	return newParsedMessage
 }
 
@@ -329,12 +329,13 @@ func getsplittedStringKey(keyvaluepair string) (string, error) {
 //Call sign
 //maybe if _, err := rand.Read(bytes); err != nil {
 //// remember try catch this
-func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
+func matchingloop(newMessage ParsedMessage, splitted []string, originalMessage string) ParsedMessage {
 	for _, keyvaluepair := range splitted {
 
 		var key, errk = getsplittedStringKey(keyvaluepair)
 		if errk != nil {
 			log.Println("Fatal error: Content broken json ", keyvaluepair)
+			log.Println(originalMessage)
 			break
 		}
 		switch key {
@@ -342,6 +343,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println("state in hex ", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.HexState = &sValue
 			}
@@ -349,6 +351,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Name = &sValue
 			}
@@ -356,6 +359,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Callsign = &sValue
 			}
@@ -363,6 +367,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Destination = &sValue
 			}
@@ -370,6 +375,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Vid = &sValue
 			}
@@ -377,6 +383,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			sDime, err := GetDimensions(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.SDimension = &sDime
 			}
@@ -384,6 +391,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			floater, err := getsplittedFloatValue(keyvaluepair)
 			if err != nil {
 				log.Println("Longitude ", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Longitude = &floater
 			}
@@ -391,6 +399,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			floater, err := getsplittedFloatValue(keyvaluepair)
 			if err != nil {
 				log.Println(" Latitude", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Latitude = &floater
 			}
@@ -398,6 +407,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			floater, err := getsplittedFloatValue(keyvaluepair)
 			if err != nil {
 				log.Println("True heading", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.TrueHeading = &floater
 			}
@@ -405,6 +415,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			floater, err := getsplittedFloatValue(keyvaluepair)
 			if err != nil {
 				log.Println("COG", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.COG = &floater
 			}
@@ -412,6 +423,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			floater, err := getsplittedFloatValue(keyvaluepair)
 			if err != nil {
 				log.Println("SOG", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.SOG = &floater
 			}
@@ -419,6 +431,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal: Rate of turn ROTAIS:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.TurnRate = &iValue
 			}
@@ -426,6 +439,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			floater, err := getsplittedFloatValue(keyvaluepair)
 			if err != nil {
 				log.Println("in Rate of turn ROTAIS", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.MPSD = &floater
 			}
@@ -434,6 +448,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.ETA = &iValue
 			}
@@ -441,6 +456,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Asensor = &iValue
 			}
@@ -448,6 +464,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Amodeflag = &iValue
 			}
@@ -455,6 +472,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.CBBandFlag = &iValue
 			}
@@ -462,6 +480,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.CBDSCFlag = &iValue
 			}
@@ -469,6 +488,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.CBDisFlag = &iValue
 			}
@@ -476,6 +496,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.CBMessageFlag = &iValue
 			}
@@ -483,6 +504,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.CBUnitFlag = &iValue
 			}
@@ -490,6 +512,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.ComStateSelector = &iValue
 			}
@@ -498,6 +521,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			if err != nil {
 
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.DTE = &iValue
 			}
@@ -505,6 +529,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Nstatus = &iValue
 			}
@@ -512,6 +537,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Pnumber = &iValue
 			}
@@ -519,6 +545,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.PosAccuracy = &iValue
 			}
@@ -526,6 +553,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.PosLatency = &iValue
 			}
@@ -533,6 +561,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.RFlag = &iValue
 			}
@@ -540,6 +569,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.SmanI = &iValue
 			}
@@ -547,6 +577,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.PFDT = &iValue
 			}
@@ -554,6 +585,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.AISVersion = &iValue
 			}
@@ -562,6 +594,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.MessageID = &iValue
 			}
@@ -570,6 +603,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Repeati = &iValue
 			}
@@ -577,6 +611,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Spare = &iValue
 			}
@@ -584,6 +619,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.Spare2 = &iValue
 			}
@@ -591,6 +627,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.TSG = &iValue
 			}
@@ -598,6 +635,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.IMONumber = &iValue
 			}
@@ -605,6 +643,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.EtimeStamp = &iValue
 			}
@@ -612,6 +651,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.TimeStamp = &iValue
 			}
@@ -619,6 +659,7 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.UID = &iValue
 			}
@@ -626,12 +667,13 @@ func matchingloop(newMessage ParsedMessage, splitted []string) ParsedMessage {
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(originalMessage)
 			} else {
 				newMessage.GNSSAltitude = &iValue
 			}
 		default:
 			log.Println("FATAL: Could not match value-key-pair", keyvaluepair)
-			log.Println(keyvaluepair)
+			log.Println(originalMessage)
 		}
 	}
 	return newMessage
