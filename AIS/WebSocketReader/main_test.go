@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"reflect"
+	"strings"
 	"testing"
 )
 
-var dimensions = shipDimensions{}
+var dimensions = ShipDimensions{}
 
 func TestGetDimensions(t *testing.T) {
 	dimensions.ADim = 8
@@ -23,6 +24,20 @@ func TestGetDimensions(t *testing.T) {
 	}
 }
 
+func TestStoragePathAndFileNamingParsed(t *testing.T) {
+	var filename = StoragePathAndFileNaming(true)
+	if !strings.Contains(filename, "parsed") {
+		t.Errorf("did not match")
+	}
+}
+
+func TestStoragePathAndFileNamingParsedRaw(t *testing.T) {
+	var filename = StoragePathAndFileNaming(false)
+	if strings.Contains(filename, "parsed") {
+		t.Errorf("did not match")
+	}
+}
+
 func TestParsedMessageObjectConverter(t *testing.T) {
 	dimensions.ADim = 8
 	dimensions.BDim = 28
@@ -30,40 +45,41 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	dimensions.DDim = 5
 
 	var message = "Communication state in hex§hex|Dimension of ship/reference for position§A=8,B=28,C=4,D=5|ETA [MMDDHHmm]§10|Longitude§24.5|Latitude§65.3|Name§name|Destination§valhalla|Vendor ID in hex§hexid|Altitude sensor§2|Assigned mode flag§3|" +
-		"Class B band flag§4|Class B display flag§5|Class B DSC flag§6|Class B Message 22 flag§7|Class B unit flag§8|Communication state selector§9|DTE§10|Navigational status§11|Part number§12|Position accuracy§13|Position latency§14|RAIM-flag§15|Special manoeuvre indicator§16" +
-		"|Type of electronic position fixing device§17|Type of ship and cargo type§18|Call sign§sign|AIS version indicator§20|Message ID§21|Repeat indicator§22|Spare§28|IMO number§23|Ext_timestamp§24|Time stamp§25|User ID§26|" +
+		"Class B band flag§4|Class B display flag§5|Class B DSC flag§6|Class B Message 22 flag§7|Class B unit flag§8|Communication state selector flag§9|DTE§10|Navigational status§11|Part number§12|Position accuracy§13|Position latency§14|RAIM-flag§15|Special manoeuvre indicator§16" +
+		"|Type of electronic position fixing device§17|Type of ship and cargo type§18|Call sign§sign|AIS version indicator§20|Message ID§21|Repeat indicator§22|Spare§28|Spare (2)§3|IMO number§23|Ext_timestamp§24|Time stamp§25|User ID§26|" +
 		"True heading§13.2|COG§13.3|SOG§13.4|Rate of turn ROTAIS§-128|Maximum present static draught§13.5|Altitude (GNSS)§27"
-	var expectedMessageObject = parsedMessage{}
-	var HexState string = "hex"
-	var SDimension shipDimensions = dimensions
-	var ETA int = 10
+	var expectedMessageObject = ParsedMessage{}
+	var HexState = "hex"
+	var SDimension = dimensions
+	var ETA = 10
 	var Longitude float32 = 24.5
 	var Latitude float32 = 65.3
-	var Name string = "name"
-	var Destination string = "Valhalla"
-	var Vid string = "hexid"
-	var Asensor int = 2
-	var Amodeflag int = 3
-	var CBBandFlag int = 4
-	var CBDisFlag int = 5
-	var CBDSCFlag int = 6
-	var CBMessageFlag int = 7
-	var CBUnitFlag int = 8
-	var ComStateSelector int = 9
-	var DTE int = 10
-	var Nstatus int = 11
-	var Pnumber int = 12
-	var PosAccuracy int = 13
-	var PosLatency int = 14
-	var RFlag int = 15
-	var SmanI int = 16
-	var PFDT int = 17
-	var TSG int = 18
-	var Callsign string = "sing"
-	var AISVersion int = 20
-	var MessageID int = 21
-	var Repeati int = 22
-	var Spare int = 28
+	var Name = "name"
+	var Destination = "Valhalla"
+	var Vid = "hexid"
+	var Asensor = 2
+	var Amodeflag = 3
+	var CBBandFlag = 4
+	var CBDisFlag = 5
+	var CBDSCFlag = 6
+	var CBMessageFlag = 7
+	var CBUnitFlag = 8
+	var ComStateSelector = 9
+	var DTE = 10
+	var Nstatus = 11
+	var Pnumber = 12
+	var PosAccuracy = 13
+	var PosLatency = 14
+	var RFlag = 15
+	var SmanI = 16
+	var PFDT = 17
+	var TSG = 18
+	var Callsign = "sing"
+	var AISVersion = 20
+	var MessageID = 21
+	var Repeati = 22
+	var Spare = 28
+	var Spare2 = 3
 	var IMONumber int64 = 23
 	var EtimeStamp int64 = 24
 	var TimeStamp int64 = 25
@@ -71,9 +87,9 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	var TrueHeading float32 = 13.2
 	var COG float32 = 13.3
 	var SOG float32 = 13.4
-	var TurnRate int = -128
+	var TurnRate = -128
 	var MPSD float32 = 13.5
-	var GNSSAltitude int = 27
+	var GNSSAltitude = 27
 
 	expectedMessageObject.HexState = &HexState
 	expectedMessageObject.SDimension = &SDimension
@@ -105,6 +121,7 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 	expectedMessageObject.MessageID = &MessageID
 	expectedMessageObject.Repeati = &Repeati
 	expectedMessageObject.Spare = &Spare
+	expectedMessageObject.Spare2 = &Spare2
 	expectedMessageObject.IMONumber = &IMONumber
 	expectedMessageObject.EtimeStamp = &EtimeStamp
 	expectedMessageObject.TimeStamp = &TimeStamp
@@ -118,15 +135,13 @@ func TestParsedMessageObjectConverter(t *testing.T) {
 
 	actual := ParsedMessageObjectConverter(message)
 
-	log.Println(*actual.HexState, expectedMessageObject.HexState)
-
 	if reflect.DeepEqual(actual, expectedMessageObject) {
 		t.Errorf("did not match")
 	}
 
 	var actualbytedump, _ = json.Marshal(actual)
 
-	var expstring = "{\"Communication state in hex\":\"hex\",\"Dimension of ship reference for position\":{\"A\":8,\"B\":28,\"C\":4,\"D\":5},\"ETA [MMDDHHmm]\":10,\"Longitude\":24.5,\"Latitude\":65.3,\"Name\":\"name\",\"Destination\":\"valhalla\",\"Vendor ID in hex\":\"hexid\",\"Altitude sensor\":2,\"Assigned mode flag\":3,\"Class B band flag\":4,\"Class B display flag\":5,\"Class B DSC flag\":6,\"Class B Message 22 flag\":7,\"Class B unit flag\":8,\"Communication state selector\":9,\"DTE\":10,\"Navigational status\":11,\"Part number\":12,\"Position accuracy\":13,\"Position latency\":14,\"RAIM-flag\":15,\"Special manoeuvre indicator\":16,\"Type of electronic position fixing device\":17,\"Type of ship and cargo type\":18,\"Call sign\":\"sign\",\"AIS Version\":20,\"Message ID\":21,\"Repeat indicator\":22,\"Spare\":28,\"IMO number\":23,\"Ext_timestamp\":24,\"Time stamp\":25,\"User ID\":26,\"True heading\":13.2,\"COG\":13.3,\"SOG\":13.4,\"Rate of Turn ROTAIS\":-128,\"Maximum present static draught\":13.5,\"Altitude (GNSS)\":27}\""
+	var expstring = "{\"Communication state in hex\":\"hex\",\"Dimension of ship reference for position\":{\"A\":8,\"B\":28,\"C\":4,\"D\":5},\"ETA [MMDDHHmm]\":10,\"Longitude\":24.5,\"Latitude\":65.3,\"Name\":\"name\",\"Destination\":\"valhalla\",\"Vendor ID in hex\":\"hexid\",\"Altitude sensor\":2,\"Assigned mode flag\":3,\"Class B band flag\":4,\"Class B display flag\":5,\"Class B DSC flag\":6,\"Class B Message 22 flag\":7,\"Class B unit flag\":8,\"Communication state selector flag\":9,\"DTE\":10,\"Navigational status\":11,\"Part number\":12,\"Position accuracy\":13,\"Position latency\":14,\"RAIM-flag\":15,\"Special manoeuvre indicator\":16,\"Type of electronic position fixing device\":17,\"Type of ship and cargo type\":18,\"Call sign\":\"sign\",\"AIS Version\":20,\"Message ID\":21,\"Repeat indicator\":22,\"Spare\":28,\"Spare (2)\":3,\"IMO number\":23,\"Ext_timestamp\":24,\"Time stamp\":25,\"User ID\":26,\"True heading\":13.2,\"COG\":13.3,\"SOG\":13.4,\"Rate of Turn ROTAIS\":-128,\"Maximum present static draught\":13.5,\"Altitude (GNSS)\":27}"
 	var actstring = string(actualbytedump)
 
 	if expstring != actstring {

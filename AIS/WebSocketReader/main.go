@@ -30,13 +30,13 @@ import (
 //var addr = flag.String("addr", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data")
 var rawList = rawStructList{}
 var parsedList = parsedStructList{}
-var s3bucket string = "aistestbucket"
+var s3bucket = "aistestbucket"
 var lock = sync.Mutex{}
 var parsedlock = sync.Mutex{}
-var uusername string = "user"
-var upassword string = "pass"
+var uusername = "user"
+var upassword = "pass"
 var messagelimit = 30000
-var bucket_region = "eu-central-1"
+var bucketRegion = "eu-central-1"
 var host = "host"
 
 const errorfloat = 1000000
@@ -64,15 +64,17 @@ type rawMessage struct {
 
 type parsedStructList struct {
 	Messages struct {
-		ParsedStructMessages []parsedMessage `json:"Messages"`
+		ParsedStructMessages []ParsedMessage `json:"Messages"`
 	} `json:"AISParsedmessages"`
 }
 
-//Remember these have to start with uppercase or go wont export them to JSON
-
-type parsedMessage struct {
+/*
+ParsedMessage contains all known attributes of AIS data
+*/
+type ParsedMessage struct {
+	//Remember these have to start with uppercase or go wont export them to JSON
 	HexState    *string         `json:"Communication state in hex,omitempty"`
-	SDimension  *shipDimensions `json:"Dimension of ship reference for position,omitempty"`
+	SDimension  *ShipDimensions `json:"Dimension of ship reference for position,omitempty"`
 	ETA         *int            `json:"ETA [MMDDHHmm],omitempty"`
 	Longitude   *float32        `json:"Longitude,omitempty"`
 	Latitude    *float32        `json:"Latitude,omitempty"`
@@ -87,7 +89,7 @@ type parsedMessage struct {
 	CBDSCFlag        *int `json:"Class B DSC flag,omitempty"`
 	CBMessageFlag    *int `json:"Class B Message 22 flag,omitempty"`
 	CBUnitFlag       *int `json:"Class B unit flag,omitempty,omitempty"`
-	ComStateSelector *int `json:"Communication state selector,omitempty"`
+	ComStateSelector *int `json:"Communication state selector flag,omitempty"`
 	DTE              *int `json:"DTE,omitempty"`
 	Nstatus          *int `json:"Navigational status,omitempty"`
 	Pnumber          *int `json:"Part number,omitempty"`
@@ -103,6 +105,7 @@ type parsedMessage struct {
 	MessageID    *int     `json:"Message ID,omitempty"`
 	Repeati      *int     `json:"Repeat indicator,omitempty"`
 	Spare        *int     `json:"Spare,omitempty"`
+	Spare2       *int     `json:"Spare (2),omitempty"`
 	IMONumber    *int64   `json:"IMO number,omitempty"`
 	EtimeStamp   *int64   `json:"Ext_timestamp,omitempty"`
 	TimeStamp    *int64   `json:"Time stamp,omitempty"`
@@ -114,7 +117,11 @@ type parsedMessage struct {
 	MPSD         *float32 `json:"Maximum present static draught,omitempty"`
 	GNSSAltitude *int     `json:"Altitude (GNSS),omitempty"`
 }
-type shipDimensions struct {
+
+/*
+ShipDimensions contains A,B,C,D dimensions from AIS data
+*/
+type ShipDimensions struct {
 	ADim int `json:"A"`
 	BDim int `json:"B"`
 	CDim int `json:"C"`
@@ -131,12 +138,12 @@ type aISData struct {
 }
 
 /*
-	Generates S3 filepath for parsed and raw data depending on bool value. Path also includes date format and filename includes current time in nanoseconds, random hex and AIS.JSON.GZ since data will be compressed
+StoragePathAndFileNaming generates S3 filepath for parsed and raw data depending on bool value. Path also includes date format and filename includes current time in nanoseconds, random hex and AIS.JSON.GZ since data will be compressed
 */
 func StoragePathAndFileNaming(parsed bool) string {
 	var s3prefix string
 	currentTime := time.Now()
-	var dateSaltprefix string = currentTime.Format("2006/01/02") + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + randomHex() + "AIS.json.gz"
+	var dateSaltprefix = currentTime.Format("2006/01/02") + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + randomHex() + "AIS.json.gz"
 	if parsed == true {
 		s3prefix = "parsed/" + dateSaltprefix
 	} else {
@@ -153,6 +160,9 @@ func compressGZ(w io.Writer, data []byte) error {
 	return err
 }
 
+/*
+initDumpToS3 initilizes variables, dumps data to byte array and compresses it for S3dump method uses
+*/
 func initDumpToS3(parsed bool) {
 	var buf bytes.Buffer
 	var JsonbyteDump []byte
@@ -162,7 +172,9 @@ func initDumpToS3(parsed bool) {
 	} else {
 		JsonbyteDump, err = json.Marshal(rawList)
 	}
-	log.Println(err)
+	if err != nil {
+		log.Println(err)
+	}
 	var storagePath = StoragePathAndFileNaming(parsed) // data is not parsed type so false
 	gzErr := compressGZ(&buf, JsonbyteDump)
 	if gzErr != nil {
@@ -171,9 +183,13 @@ func initDumpToS3(parsed bool) {
 		go dumpToS3(buf, storagePath)
 	}
 }
+
+/*
+dumpToS3 literally uploads data to S3 with given parameters
+*/
 func dumpToS3(buf bytes.Buffer, path string) {
 	log.Println("Starting to dump")
-	s, err := session.NewSession(&aws.Config{Region: aws.String(bucket_region)})
+	s, err := session.NewSession(&aws.Config{Region: aws.String(bucketRegion)})
 	uploader := s3manager.NewUploader(s)
 	if err != nil {
 		log.Println(err)
@@ -239,7 +255,7 @@ raw data is added to slice (golang array) inside lock so only on thread can add 
 func rawDataprocessLogic(rawData []string, test bool) bool {
 	lock.Lock()
 	defer lock.Unlock()
-	var newStrucutredRawMessage rawMessage = rawMessageObjectCreator(rawData)
+	var newStrucutredRawMessage = rawMessageObjectCreator(rawData)
 	rawList.Messages.MessagesWithStamp = append(rawList.Messages.MessagesWithStamp, newStrucutredRawMessage)
 	if len(rawList.Messages.MessagesWithStamp) >= messagelimit {
 		var parsed = false
@@ -256,7 +272,7 @@ func rawDataprocessLogic(rawData []string, test bool) bool {
 func parsedDataprocessLogic(parsedData string, test bool) bool {
 	parsedlock.Lock()
 	defer parsedlock.Unlock()
-	var newStrucutredParsedMessage parsedMessage = ParsedMessageObjectConverter(parsedData)
+	var newStrucutredParsedMessage = ParsedMessageObjectConverter(parsedData)
 	parsedList.Messages.ParsedStructMessages = append(parsedList.Messages.ParsedStructMessages, newStrucutredParsedMessage)
 	if len(parsedList.Messages.ParsedStructMessages) >= messagelimit {
 		var parsed = true
@@ -270,328 +286,396 @@ func parsedDataprocessLogic(parsedData string, test bool) bool {
 	return false
 }
 
-/**
-Converts
+/*
+ParsedMessageObjectConverter converts string to Parsedmessage object
 */
-
-func ParsedMessageObjectConverter(parsedData string) parsedMessage {
+func ParsedMessageObjectConverter(parsedData string) ParsedMessage {
 	var splittedData = strings.Split(parsedData, "|")
-	var newParsedMessage = parsedMessage{}
-	newParsedMessage = matchingloop(newParsedMessage, splittedData)
+	var newParsedMessage = ParsedMessage{}
+	newParsedMessage = matchingloop(newParsedMessage, splittedData, &parsedData)
 	return newParsedMessage
 }
 
 func getsplittedFloatValue(keyvaluepair string) (float32, error) {
 	var splittedpair = strings.Split(keyvaluepair, "§")
 	if len(splittedpair) != 2 {
-		log.Println("failed to parse float value")
-		return 0, errors.New("Fatal: to parse float value")
+		return 0, errors.New("Failed to parse float value")
 	}
 	longstring := splittedpair[1]
 	longval, err := strconv.ParseFloat(longstring, 32)
 	if err != nil {
 		log.Println("failed to convert float")
 		return 0, errors.New("Fatal: failed to parse float value")
-
-	} else {
-		return float32(longval), nil
 	}
+	return float32(longval), nil
 
 }
 
 func getsplittedStringValue(keyvaluepair string) (string, error) {
-	var splittedpair = strings.Split(keyvaluepair, "§")
-	if len(splittedpair) != 2 {
-		return "", errors.New("Fatal:Failed to parse String")
+	var splittedpair = strings.SplitN(keyvaluepair, "§", 3)
+	if len(splittedpair[1]) > 0 {
+		return splittedpair[1], nil
 	}
-	return splittedpair[1], nil
+	return "", errors.New("Fatal:Failed to parse String " + keyvaluepair)
+
+}
+
+func getsplittedStringKey(keyvaluepair string) (string, error) {
+	var splittedpair = strings.SplitN(keyvaluepair, "§", 2)
+	if len(splittedpair[0]) > 0 {
+		return splittedpair[0], nil
+	}
+	return "", errors.New("Fatal:Failed to parse key-value" + keyvaluepair)
 }
 
 //Call sign
 //maybe if _, err := rand.Read(bytes); err != nil {
 //// remember try catch this
-func matchingloop(newMessage parsedMessage, splitted []string) parsedMessage {
+func matchingloop(newMessage ParsedMessage, splitted []string, originalMessage *string) ParsedMessage {
 	for _, keyvaluepair := range splitted {
-		//Strings
-		if strings.Contains(keyvaluepair, "Communication state in hex") {
+
+		var key, errk = getsplittedStringKey(keyvaluepair)
+		if errk != nil {
+			log.Println("Fatal error: Content broken json ", keyvaluepair)
+			log.Println(*originalMessage)
+			break
+		}
+		switch key {
+		case "Communication state in hex":
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
-				log.Println(err)
+				log.Println("state in hex ", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.HexState = &sValue
 			}
-		} else if strings.Contains(keyvaluepair, "Name") {
+		case "Name":
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Name = &sValue
 			}
-		} else if strings.Contains(keyvaluepair, "Call sign") {
+		case "Call sign":
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Callsign = &sValue
 			}
-		} else if strings.Contains(keyvaluepair, "Destination") {
+		case "Destination":
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Destination = &sValue
 			}
-		} else if strings.Contains(keyvaluepair, "Vendor ID in hex") {
+		case "Vendor ID in hex":
 			sValue, err := getsplittedStringValue(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Vid = &sValue
-			} //Ship dimension
-		} else if strings.Contains(keyvaluepair, "Dimension of ship/reference for position") {
+			}
+		case "Dimension of ship/reference for position":
 			sDime, err := GetDimensions(keyvaluepair)
 			if err != nil {
 				log.Println(err)
+				log.Println(*originalMessage)
 			} else {
-				log.Println("dimensions:", sDime.ADim)
-
 				newMessage.SDimension = &sDime
-			} //floats
-		} else if strings.Contains(keyvaluepair, "Longitude") {
+			}
+		case "Longitude":
 			floater, err := getsplittedFloatValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println("Longitude ", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.Longitude = &floater
 			}
-		} else if strings.Contains(keyvaluepair, "Latitude") {
+		case "Latitude":
 			floater, err := getsplittedFloatValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println(" Latitude", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.Latitude = &floater
 			}
-		} else if strings.Contains(keyvaluepair, "True heading") {
+		case "True heading":
 			floater, err := getsplittedFloatValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println("True heading", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.TrueHeading = &floater
 			}
-		} else if strings.Contains(keyvaluepair, "COG") {
+		case "COG":
 			floater, err := getsplittedFloatValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println("COG", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.COG = &floater
 			}
-		} else if strings.Contains(keyvaluepair, "SOG") {
+		case "SOG":
 			floater, err := getsplittedFloatValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println("SOG", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.SOG = &floater
 			}
-			// Integers
-		} else if strings.Contains(keyvaluepair, "Rate of turn ROTAIS") {
+		case "Rate of turn ROTAIS":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println("Fatal: Rate of turn ROTAIS:", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.TurnRate = &iValue
 			}
-
-		} else if strings.Contains(keyvaluepair, "Maximum present static draught") {
+		case "Maximum present static draught":
 			floater, err := getsplittedFloatValue(keyvaluepair)
-			if err == nil {
+			if err != nil {
+				log.Println("in Rate of turn ROTAIS", err)
+				log.Println(*originalMessage)
+			} else {
 				newMessage.MPSD = &floater
 			}
 
-		} else if strings.Contains(keyvaluepair, "ETA [MMDDHHmm]") {
+		case "ETA [MMDDHHmm]":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.ETA = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Altitude sensor") {
+		case "Altitude sensor":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Asensor = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Assigned mode flag") {
+		case "Assigned mode flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Amodeflag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Class B band flag") {
+		case "Class B band flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.CBBandFlag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Class B DSC flag") {
+		case "Class B DSC flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.CBDSCFlag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Class B display flag") {
+		case "Class B display flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.CBDisFlag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Class B Message 22 flag") {
+		case "Class B Message 22 flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.CBMessageFlag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Class B unit flag") {
+		case "Class B unit flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.CBUnitFlag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Communication state selector") {
+		case "Communication state selector flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.ComStateSelector = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "DTE") {
+		case "DTE":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.DTE = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Navigational status") {
+		case "Navigational status":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Nstatus = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Part number") {
+		case "Part number":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Pnumber = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Position accuracy") {
+		case "Position accuracy":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.PosAccuracy = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Position latency") {
+		case "Position latency":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.PosLatency = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "RAIM-flag") {
+		case "RAIM-flag":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.RFlag = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Special manoeuvre indicator") {
+		case "Special manoeuvre indicator":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.SmanI = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Type of electronic position fixing device") {
+		case "Type of electronic position fixing device":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.PFDT = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "AIS version indicator") {
+		case "AIS version indicator":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.AISVersion = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Message ID") {
+
+		case "Message ID":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.MessageID = &iValue
 			}
 
-		} else if strings.Contains(keyvaluepair, "Repeat indicator") {
+		case "Repeat indicator":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Repeati = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Spare") {
+		case "Spare":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.Spare = &iValue
 			}
-
-		} else if strings.Contains(keyvaluepair, "Type of ship and cargo type") {
+		case "Spare (2)":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
+			} else {
+				newMessage.Spare2 = &iValue
+			}
+		case "Type of ship and cargo type":
+			iValue, err := getsplittedIntegerValue(keyvaluepair)
+			if err != nil {
+				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.TSG = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "IMO number") {
+		case "IMO number":
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.IMONumber = &iValue
 			}
-
-		} else if strings.Contains(keyvaluepair, "Ext_timestamp") {
+		case "Ext_timestamp":
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.EtimeStamp = &iValue
 			}
-
-		} else if strings.Contains(keyvaluepair, "Time stamp") {
+		case "Time stamp":
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.TimeStamp = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "User ID") {
+		case "User ID":
 			iValue, err := getsplittedInteger64Value(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.UID = &iValue
 			}
-		} else if strings.Contains(keyvaluepair, "Altitude (GNSS)") {
+		case "Altitude (GNSS)":
 			iValue, err := getsplittedIntegerValue(keyvaluepair)
 			if err != nil {
 				log.Println("Fatal:", err)
+				log.Println(*originalMessage)
 			} else {
 				newMessage.GNSSAltitude = &iValue
 			}
-		} else {
+		default:
 			log.Println("FATAL: Could not match value-key-pair", keyvaluepair)
-			log.Println(keyvaluepair)
+			log.Println(*originalMessage)
 		}
 	}
 	return newMessage
@@ -599,14 +683,13 @@ func matchingloop(newMessage parsedMessage, splitted []string) parsedMessage {
 
 //AIS version indicator
 
-/**
-splits keyvalue pair that contains a,b,c,d info of the vessel
+/*
+GetDimensions splits keyvalue pair that contains a,b,c,d info of the vessel
 second split splits a,b,c,d to their own pairs
 which we try to match and import to ships dimension structure and return it
 */
-
-func GetDimensions(keyvaluepair string) (shipDimensions, error) {
-	var newDimensions = shipDimensions{}
+func GetDimensions(keyvaluepair string) (ShipDimensions, error) {
+	var newDimensions = ShipDimensions{}
 	var splittedpair = strings.Split(keyvaluepair, "§")
 	if len(splittedpair) != 2 {
 		return newDimensions, errors.New("failed to split dimension keyvalue pair")
@@ -649,7 +732,7 @@ func GetDimensions(keyvaluepair string) (shipDimensions, error) {
 			}
 			newDimensions.DDim = integerValue
 		} else {
-			log.Println("Fatal: unknown dimension, read dimension other than abcd")
+			log.Println("Fatal: unknown dimension, read dimension other than A B C or D")
 		}
 	}
 	return newDimensions, nil
@@ -670,7 +753,6 @@ func givedimensionvalue(dimL string) (int, error) {
 func getsplittedIntegerValue(keyvaluepair string) (int, error) {
 	var splittedpair = strings.Split(keyvaluepair, "§")
 	if len(splittedpair) != 2 {
-		log.Println("failed integer,", keyvaluepair)
 		return -1, errors.New("failed to split integer keyvalue pair: ")
 	}
 	return strconv.Atoi(splittedpair[1])
@@ -701,7 +783,6 @@ func randomHex() string {
 */
 
 func getSecrets() {
-
 	sess, err := session.NewSessionWithOptions(session.Options{
 		Config:            aws.Config{Region: aws.String("eu-central-1")},
 		SharedConfigState: session.SharedConfigEnable,
@@ -719,7 +800,6 @@ func getSecrets() {
 	if err != nil {
 		log.Println("Falling back to hardcoded credentials, error: ", err)
 	} else {
-
 		value := *param.Parameter.Value
 		var splittedvalue = strings.Split(value, ",")
 		s3bucket = splittedvalue[0]
@@ -761,7 +841,7 @@ func startConnect() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 	u := url.URL{Scheme: "wss", Host: host, Path: "raw-and-parsed-data", RawQuery: queryString}
-	log.Printf("connecting to %s", u.String())
+	log.Printf("connecting to Server")
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), customHeader)
 	if err != nil {
 		log.Fatal("dial:", err)
@@ -777,9 +857,10 @@ func startConnect() {
 			c.SetReadDeadline(time.Now().Add(timeoutDuration))
 			_, message, err := c.ReadMessage()
 			if err != nil {
-				log.Println("read:", err)
-				mux.Unlock()
-				return
+				log.Fatal("read:", err)
+				time.Sleep(5 * time.Second) //wait before dumping everything and restarting
+				initDumpToS3(true)          //sends parsed data to S3 bucket
+				initDumpToS3(false)         // /sends raw data to S3 bucket
 			}
 			go messageprosessor(message, false) //sends message and informs messageinsert is not a test
 			//log.Printf("recv: %s", message) //debug
