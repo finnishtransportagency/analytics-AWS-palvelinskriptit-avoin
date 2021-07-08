@@ -48,8 +48,7 @@ export class CICDStack extends Stack {
     } else {
       branch = "AIS-"+environment
     }
-    const codecommitrepoarn = ssm.StringParameter.valueForStringParameter(
-      this, "/"+appname + '/phase0/codecommitarn');
+
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       pipelineName: namingconvention + '-Pipeline', cloudAssemblyArtifact,
       sourceAction: new ca.GitHubSourceAction({

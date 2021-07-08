@@ -2,7 +2,7 @@
   "name": "aisreader",
   "version": "0.2.0",
   "bin": {
-    "r-analytis": "bin/r-analytis.js"
+    "r-analytis": "bin/aisreader.js"
   },
   "scripts": {
     "build": "tsc",
