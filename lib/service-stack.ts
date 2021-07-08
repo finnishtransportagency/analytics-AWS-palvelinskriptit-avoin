@@ -22,7 +22,7 @@ export class ServiceStack extends cdk.Stack {
     const namingpath = '/' + appname + '/' + environment
     const namingconvention = appname + "-" + environment
 
-    const vpc =  ec2.Vpc.fromLookup(this, this.node.tryGetContext('vpcname')+ "-"+ environment.toLocaleUpperCase,{isDefault: false, vpcName: this.node.tryGetContext('vpclookupname-'+environment)}
+    const vpc =  ec2.Vpc.fromLookup(this, this.node.tryGetContext('vpcname') + "-"+ environment.toLocaleUpperCase,{isDefault: false, vpcName: this.node.tryGetContext('vpclookupname-'+environment)}
 )
     const ecsSG = new ec2.SecurityGroup(this, namingconvention+"-ecs-sg-outboundonly", {
       vpc, 
@@ -66,7 +66,7 @@ const taskdef= new ecs.TaskDefinition(this, "task-"+namingconvention, {
   key.grantDecrypt(taskdef.taskRole)
   taskdef.addContainer("container-"+namingconvention, {
 
-    image:ecs.ContainerImage.fromAsset("AIS/WebSocetReader/"),
+    image:ecs.ContainerImage.fromAsset("AIS/WebSocketReader/"),
     cpu:256,
     memoryLimitMiB:512,
     logging: ecs.LogDrivers.awsLogs( { 
@@ -87,13 +87,5 @@ ecsService.autoScaleTaskCount({ maxCapacity: 1 }).scaleOnCpuUtilization('CpuScal
 });
 
     taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"fulls3access",""))
-  
-  
-  
-    /*const ecsdailyTaskTarget = new Etargets.EcsTask({ cluster: cluster, taskDefinition: taskdef, securityGroups: [ecsSG], });
 
-  const dailyrule = new Rule(this, namingconvention+'-dailySchedule', {
-    schedule: Schedule.expression('cron(00 03 * * ? *)'),
-    targets: [ecsdailyTaskTarget],
-  });*/  
 }}

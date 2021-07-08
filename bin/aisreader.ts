@@ -14,10 +14,8 @@ import { CommitStack } from '../lib/codecommit-stack';
 
 const app = new cdk.App();
 const envEU  = { account: app.node.tryGetContext('prodaccountid'), region: 'eu-central-1' };
-new SecretsStack(app, 'AIS-secrets-prod', {env:envEU});
-const vpcdev=new VPCStack(app, 'AIS-vpc-prod',{  env:envEU} );
-new ServiceStack(app, 'AIS-service-prod',{  env:envEU,
-});
+//new SecretsStack(app, 'AIS-secrets-prod', {env:envEU});
+//const vpcdev=new VPCStack(app, 'AIS-vpc-prod',{  env:envEU} ); provided by account
 new CICDStack(app, 'AIS-cicd-prod', {env:envEU
      });
 
