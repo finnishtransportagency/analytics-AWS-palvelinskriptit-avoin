@@ -20,15 +20,16 @@ export class ServiceStack extends cdk.Stack {
     const namingpath = '/' + appname + '/' + environment
     const namingconvention = appname + "-" + environment
 
-    var vpcnamevariable = "d"
+    var vpcnamevariable = "nope"
+    var vpcid:".avi"
     if (environment == "prod") {
       vpcnamevariable = this.node.tryGetContext('vpclookupname-prod')
+      vpcid = this.node.tryGetContext('vpcid-prod')
     } else {
       vpcnamevariable = this.node.tryGetContext('vpclookupname-dev')
+      vpcid = this.node.tryGetContext('vpcid-dev')
     }
-
- 
-    const vpc =  ec2.Vpc.fromLookup(this, vpcnamevariable ,{isDefault: false, vpcName: vpcnamevariable}
+     const vpc =  ec2.Vpc.fromLookup(this, vpcnamevariable ,{isDefault: false, vpcId: vpcid,vpcName:vpcnamevariable}
 )
     const ecsSG = new ec2.SecurityGroup(this, namingconvention+"-ecs-sg-outboundonly", {
       vpc, 

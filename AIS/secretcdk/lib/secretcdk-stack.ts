@@ -16,7 +16,7 @@ export class SecretcdkStack extends cdk.Stack {
     const secret = new secretsmanager.Secret(this, namingconvention + '-AppSecrets',
       {
         generateSecretString: {
-          secretStringTemplate: '{"gittoken": "token"}',
+          secretStringTemplate: '{"gittoken": "token",vpc_id,availability_zone1,availability_zone2,private_subnet_id1,private_subnet_id2,public_subnet_id1,private_subnet_id2}',
           generateStringKey: 'secretstring'
         },
       },

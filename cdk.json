@@ -14,6 +14,8 @@
     "@aws-cdk/aws-efs:defaultEncryptionAtRest": true,
     "vpcname":"AIS",
     "vpclookupname-dev": "AIS-dev",
+    "vpcid-dev":"1" ,
+    "vpcid-prod":"vpc-0e7cee7f8110050a7",
     "vpclookupname-prod": "AIS-PROD",
     "clustername":"AIS",
     "githubrepo": "analytics-AWS-palvelinskriptit-avoin",
