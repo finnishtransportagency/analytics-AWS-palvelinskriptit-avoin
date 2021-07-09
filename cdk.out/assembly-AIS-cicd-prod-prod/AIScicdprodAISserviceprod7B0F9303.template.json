@@ -1,0 +1,398 @@
+{
+  "Resources": {
+    "AISprodecssgoutboundonly6D640841": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "OutBoundOnly",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1"
+          }
+        ],
+        "VpcId": "vpc-0e7cee7f8110050a7"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-prod-ecs-sg-outboundonly/Resource"
+      }
+    },
+    "AISprodClusterD7FA3D92": {
+      "Type": "AWS::ECS::Cluster",
+      "Properties": {
+        "ClusterSettings": [
+          {
+            "Name": "containerInsights",
+            "Value": "enabled"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-prod-Cluster/Resource"
+      }
+    },
+    "AISprodTaskExecutionRole5776856E": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-prod-TaskExecutionRole-/Resource"
+      }
+    },
+    "AISprodTaskExecutionRoleDefaultPolicy488110CA": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "SsmParameterValueAISprodphase0secretmanagerC96584B6F00A464EAD1953AFF4B05118Parameter"
+              }
+            },
+            {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "SsmParameterValueAISprodphase0kmskeyC96584B6F00A464EAD1953AFF4B05118Parameter"
+              }
+            },
+            {
+              "Action": [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":ecr:eu-central-1:715757124801:repository/cdk-hnb659fds-container-assets-715757124801-eu-central-1"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "taskAISprodcontainerAISprodLogGroupE6EAAA2A",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "AISprodTaskExecutionRoleDefaultPolicy488110CA",
+        "Roles": [
+          {
+            "Ref": "AISprodTaskExecutionRole5776856E"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-prod-TaskExecutionRole-/DefaultPolicy/Resource"
+      }
+    },
+    "taskAISprodTaskRole8C871597": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          ""
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/task-AIS-prod/TaskRole/Resource"
+      }
+    },
+    "taskAISprodTaskRoleDefaultPolicyCC2ACBCE": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "SsmParameterValueAISprodphase0secretmanagerC96584B6F00A464EAD1953AFF4B05118Parameter"
+              }
+            },
+            {
+              "Action": "kms:Decrypt",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "SsmParameterValueAISprodphase0kmskeyC96584B6F00A464EAD1953AFF4B05118Parameter"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "taskAISprodTaskRoleDefaultPolicyCC2ACBCE",
+        "Roles": [
+          {
+            "Ref": "taskAISprodTaskRole8C871597"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/task-AIS-prod/TaskRole/DefaultPolicy/Resource"
+      }
+    },
+    "taskAISprodADC46B77": {
+      "Type": "AWS::ECS::TaskDefinition",
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Cpu": 256,
+            "Essential": true,
+            "Image": {
+              "Fn::Sub": "715757124801.dkr.ecr.eu-central-1.${AWS::URLSuffix}/cdk-hnb659fds-container-assets-715757124801-eu-central-1:046c9ac4b3232c2625bd825e85208446f64ce77ea8885ced5b94e14556c28b13"
+            },
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "taskAISprodcontainerAISprodLogGroupE6EAAA2A"
+                },
+                "awslogs-stream-prefix": "AIS-prod",
+                "awslogs-region": "eu-central-1"
+              }
+            },
+            "Memory": 512,
+            "Name": "container-AIS-prod"
+          }
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "AISprodTaskExecutionRole5776856E",
+            "Arn"
+          ]
+        },
+        "Family": "AIScicdprodAISserviceprodtaskAISprod066846FC",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE"
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "taskAISprodTaskRole8C871597",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/task-AIS-prod/Resource"
+      }
+    },
+    "taskAISprodcontainerAISprodLogGroupE6EAAA2A": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "RetentionInDays": 30
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/task-AIS-prod/container-AIS-prod/LogGroup/Resource"
+      }
+    },
+    "AISService9967F218": {
+      "Type": "AWS::ECS::Service",
+      "Properties": {
+        "Cluster": {
+          "Ref": "AISprodClusterD7FA3D92"
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50
+        },
+        "DesiredCount": 1,
+        "EnableECSManagedTags": false,
+        "LaunchType": "FARGATE",
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "AISprodecssgoutboundonly6D640841",
+                  "GroupId"
+                ]
+              }
+            ],
+            "Subnets": [
+              "subnet-02c78b3a49b2d52c9",
+              "subnet-0a86c65f80529bd5e"
+            ]
+          }
+        },
+        "TaskDefinition": {
+          "Ref": "taskAISprodADC46B77"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-Service/Service"
+      }
+    },
+    "AISServiceTaskCountTargetFDE30942": {
+      "Type": "AWS::ApplicationAutoScaling::ScalableTarget",
+      "Properties": {
+        "MaxCapacity": 1,
+        "MinCapacity": 1,
+        "ResourceId": {
+          "Fn::Join": [
+            "",
+            [
+              "service/",
+              {
+                "Ref": "AISprodClusterD7FA3D92"
+              },
+              "/",
+              {
+                "Fn::GetAtt": [
+                  "AISService9967F218",
+                  "Name"
+                ]
+              }
+            ]
+          ]
+        },
+        "RoleARN": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":iam::715757124801:role/aws-service-role/ecs.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_ECSService"
+            ]
+          ]
+        },
+        "ScalableDimension": "ecs:service:DesiredCount",
+        "ServiceNamespace": "ecs"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-Service/TaskCount/Target/Resource"
+      }
+    },
+    "AISServiceTaskCountTargetCpuScaling87030B43": {
+      "Type": "AWS::ApplicationAutoScaling::ScalingPolicy",
+      "Properties": {
+        "PolicyName": "AIScicdprodAISserviceprodAISServiceTaskCountTargetCpuScalingB117EDCB",
+        "PolicyType": "TargetTrackingScaling",
+        "ScalingTargetId": {
+          "Ref": "AISServiceTaskCountTargetFDE30942"
+        },
+        "TargetTrackingScalingPolicyConfiguration": {
+          "PredefinedMetricSpecification": {
+            "PredefinedMetricType": "ECSServiceAverageCPUUtilization"
+          },
+          "TargetValue": 80
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-Service/TaskCount/Target/CpuScaling/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Modules": "aws-cdk=1.103.0,@aws-cdk/assets=1.89.0,@aws-cdk/aws-applicationautoscaling=1.89.0,@aws-cdk/aws-autoscaling=1.89.0,@aws-cdk/aws-autoscaling-common=1.89.0,@aws-cdk/aws-autoscaling-hooktargets=1.89.0,@aws-cdk/aws-cloudformation=1.89.0,@aws-cdk/aws-cloudwatch=1.89.0,@aws-cdk/aws-codebuild=1.89.0,@aws-cdk/aws-codecommit=1.89.0,@aws-cdk/aws-codeguruprofiler=1.89.0,@aws-cdk/aws-codepipeline=1.89.0,@aws-cdk/aws-codepipeline-actions=1.89.0,@aws-cdk/aws-ec2=1.89.0,@aws-cdk/aws-ecr=1.89.0,@aws-cdk/aws-ecr-assets=1.89.0,@aws-cdk/aws-ecs=1.89.0,@aws-cdk/aws-elasticloadbalancingv2=1.89.0,@aws-cdk/aws-events=1.89.0,@aws-cdk/aws-events-targets=1.89.0,@aws-cdk/aws-iam=1.89.0,@aws-cdk/aws-kms=1.89.0,@aws-cdk/aws-lambda=1.89.0,@aws-cdk/aws-logs=1.89.0,@aws-cdk/aws-s3=1.89.0,@aws-cdk/aws-s3-assets=1.89.0,@aws-cdk/aws-sam=1.89.0,@aws-cdk/aws-secretsmanager=1.89.0,@aws-cdk/aws-servicediscovery=1.89.0,@aws-cdk/aws-sns=1.89.0,@aws-cdk/aws-sns-subscriptions=1.89.0,@aws-cdk/aws-sqs=1.89.0,@aws-cdk/aws-ssm=1.89.0,@aws-cdk/cloud-assembly-schema=1.89.0,@aws-cdk/core=1.89.0,@aws-cdk/custom-resources=1.89.0,@aws-cdk/cx-api=1.89.0,@aws-cdk/pipelines=1.89.0,@aws-cdk/region-info=1.89.0,jsii-runtime=node.js/v12.16.1"
+      },
+      "Metadata": {
+        "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/CDKMetadata/Default"
+      }
+    }
+  },
+  "Parameters": {
+    "SsmParameterValueAISprodphase0kmskeyC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/AIS/prod/phase0/kmskey"
+    },
+    "SsmParameterValueAISprodphase0secretmanagerC96584B6F00A464EAD1953AFF4B05118Parameter": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/AIS/prod/phase0/secretmanager"
+    },
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store."
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 4 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}
