@@ -1552,7 +1552,7 @@
                                 "ipProtocol": "-1"
                               }
                             ],
-                            "vpcId": "vpc-0e7cee7f8110050a7"
+                            "vpcId": "vpc-12345"
                           }
                         }
                       }
@@ -1745,7 +1745,7 @@
                                   "Version": "2012-10-17"
                                 },
                                 "managedPolicyArns": [
-                                  ""
+                                  "dfgsdfsd"
                                 ]
                               }
                             }
@@ -1906,8 +1906,8 @@
                               "awsvpcConfiguration": {
                                 "assignPublicIp": "DISABLED",
                                 "subnets": [
-                                  "subnet-02c78b3a49b2d52c9",
-                                  "subnet-0a86c65f80529bd5e"
+                                  "p-12345",
+                                  "p-67890"
                                 ],
                                 "securityGroups": [
                                   {
@@ -2015,6 +2015,10 @@
                   "fulls3access": {
                     "id": "fulls3access",
                     "path": "AIS-cicd-prod/prod/AIS-service-prod/fulls3access"
+                  },
+                  "secretmanageraccess": {
+                    "id": "secretmanageraccess",
+                    "path": "AIS-cicd-prod/prod/AIS-service-prod/secretmanageraccess"
                   },
                   "CDKMetadata": {
                     "id": "CDKMetadata",
