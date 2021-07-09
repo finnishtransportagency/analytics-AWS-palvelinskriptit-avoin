@@ -16,7 +16,7 @@
         "templateFile": "AIScicdprodAISserviceprod7B0F9303.template.json",
         "assumeRoleArn": "arn:${AWS::Partition}:iam::715757124801:role/cdk-hnb659fds-deploy-role-715757124801-eu-central-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::715757124801:role/cdk-hnb659fds-cfn-exec-role-715757124801-eu-central-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-715757124801-eu-central-1/48bf46d0045635f8530275306c3adccc88f699a3988a3436c449ae927cb59188.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-715757124801-eu-central-1/c45d641bcf161fd9e81ba543fa91c73dbc1f0b0d498b3dd58f767633b815f0d5.json",
         "requiresBootstrapStackVersion": 4,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -28,44 +28,13 @@
         "AIScicdprodAISserviceprod7B0F9303.assets"
       ],
       "metadata": {
-        "/AIS-cicd-prod/prod/AIS-service-prod": [
-          {
-            "type": "aws:cdk:error",
-            "data": "Request has expired.",
-            "trace": [
-              "Annotations.addMessage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/annotations.ts:92:25)",
-              "Annotations.addError (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/annotations.ts:51:10)",
-              "Function.getValue (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/context-provider.ts:111:31)",
-              "Function.fromLookup (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ec2/lib/vpc.ts:1061:66)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:23:26)",
-              "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
-              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
-              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
-              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
-              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
-              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
-              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
-              "Module.load (internal/modules/cjs/loader.js:1002:32)",
-              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
-              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
-              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
-              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
-              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
-              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
-              "Module.load (internal/modules/cjs/loader.js:1002:32)",
-              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
-              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
-              "internal/main/run_main_module.js:18:47"
-            ]
-          }
-        ],
         "/AIS-cicd-prod/prod/AIS-service-prod/AIS-prod-ecs-sg-outboundonly/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "AISprodecssgoutboundonly6D640841",
             "trace": [
               "new SecurityGroup (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ec2/lib/security-group.ts:402:26)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:25:19)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:33:19)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -93,7 +62,7 @@
             "data": "AISprodClusterD7FA3D92",
             "trace": [
               "new Cluster (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/cluster.ts:137:21)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:33:21)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:41:21)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -123,7 +92,7 @@
               "Function.fromStringParameterAttributes (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:328:9)",
               "Function.valueForTypedStringParameter (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:398:17)",
               "Function.valueForStringParameter (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:381:28)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:37:40)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:45:40)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -151,7 +120,7 @@
             "data": "AISprodTaskExecutionRole5776856E",
             "trace": [
               "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:40:18)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:48:18)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -182,7 +151,7 @@
               "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
               "Function.addToPrincipal (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/grant.ts:168:61)",
               "Object.grantRead (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-secretsmanager/lib/secret.ts:186:30)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:61:20)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:69:20)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -212,7 +181,7 @@
               "Function.fromStringParameterAttributes (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:328:9)",
               "Function.valueForTypedStringParameter (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:398:17)",
               "Function.valueForStringParameter (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:381:28)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:46:46)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:54:46)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -241,7 +210,7 @@
             "trace": [
               "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
               "new TaskDefinition (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:304:39)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:54:16)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:62:16)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -272,7 +241,7 @@
               "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
               "Function.addToPrincipal (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/grant.ts:168:61)",
               "Object.grantRead (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-secretsmanager/lib/secret.ts:186:30)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:62:20)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:70:20)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -300,7 +269,7 @@
             "data": "taskAISprodADC46B77",
             "trace": [
               "new TaskDefinition (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:308:21)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:54:16)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:62:16)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -331,7 +300,7 @@
               "AwsLogDriver.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/log-drivers/aws-log-driver.ts:95:44)",
               "new ContainerDefinition (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/container-definition.ts:410:44)",
               "TaskDefinition.addContainer (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/task-definition.ts:423:12)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:65:11)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:73:11)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -360,7 +329,7 @@
             "trace": [
               "new BaseService (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:359:21)",
               "new FargateService (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/fargate/fargate-service.ts:152:5)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:76:24)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:84:24)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -391,7 +360,7 @@
               "new BaseScalableAttribute (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-applicationautoscaling/lib/base-scalable-attribute.ts:56:19)",
               "new ScalableTaskCount (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/scalable-task-count.ts:22:5)",
               "FargateService.autoScaleTaskCount (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/base-service.ts:512:37)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:83:12)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:91:12)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -422,7 +391,7 @@
               "ScalableTarget.scaleToTrackMetric (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-applicationautoscaling/lib/scalable-target.ts:172:12)",
               "ScalableTaskCount.doScaleToTrackMetric (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-applicationautoscaling/lib/base-scalable-attribute.ts:84:17)",
               "ScalableTaskCount.scaleOnCpuUtilization (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ecs/lib/base/scalable-task-count.ts:43:18)",
-              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:83:51)",
+              "new ServiceStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/service-stack.ts:91:51)",
               "new ApplicationStageR (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:20:5)",
               "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:69:56)",
               "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:17:1)",
@@ -550,20 +519,5 @@
         ]
       }
     }
-  },
-  "missing": [
-    {
-      "key": "vpc-provider:account=715757124801:filter.isDefault=false:filter.tag:Name=AIS-PROD:region=eu-central-1:returnAsymmetricSubnets=true",
-      "provider": "vpc-provider",
-      "props": {
-        "account": "715757124801",
-        "region": "eu-central-1",
-        "filter": {
-          "tag:Name": "AIS-PROD",
-          "isDefault": "false"
-        },
-        "returnAsymmetricSubnets": true
-      }
-    }
-  ]
+  }
 }
