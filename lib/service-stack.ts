@@ -92,6 +92,6 @@ ecsService.autoScaleTaskCount({ maxCapacity: 1 }).scaleOnCpuUtilization('CpuScal
   targetUtilizationPercent: 80
 });
 
-    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"fulls3access","dfgsdfsd"))
-    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"secretmanageraccess","dfgsdfsd"))
+    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"fulls3access","arn:aws:iam::aws:policy/AmazonS3FullAccess"))
+    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"secretmanageraccess","arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"))
 }}
