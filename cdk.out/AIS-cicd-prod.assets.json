@@ -1,7 +1,7 @@
 {
   "version": "9.0.0",
   "files": {
-    "23c5229cdd3edb98cce4d8bcdd50ed0062cb2f3f26428f1e44563d2903a62990": {
+    "00726c35f3b4d564212d13e60f108b29f4312e72bde9c00cc6d579f93df1e66e": {
       "source": {
         "path": "AIS-cicd-prod.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "715757124801-eu-central-1": {
           "bucketName": "cdk-hnb659fds-assets-715757124801-eu-central-1",
-          "objectKey": "23c5229cdd3edb98cce4d8bcdd50ed0062cb2f3f26428f1e44563d2903a62990.json",
+          "objectKey": "00726c35f3b4d564212d13e60f108b29f4312e72bde9c00cc6d579f93df1e66e.json",
           "region": "eu-central-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::715757124801:role/cdk-hnb659fds-file-publishing-role-715757124801-eu-central-1"
         }
