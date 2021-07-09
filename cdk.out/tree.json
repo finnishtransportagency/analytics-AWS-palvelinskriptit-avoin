@@ -1512,25 +1512,25 @@
                 "id": "AIS-service-prod",
                 "path": "AIS-cicd-prod/prod/AIS-service-prod",
                 "children": {
-                  "AIS-function toLocaleUpperCase() { [native code] }": {
-                    "id": "AIS-function toLocaleUpperCase() { [native code] }",
-                    "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-function toLocaleUpperCase() { [native code] }",
+                  "AIS-PROD": {
+                    "id": "AIS-PROD",
+                    "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-PROD",
                     "children": {
                       "PublicSubnet1": {
                         "id": "PublicSubnet1",
-                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-function toLocaleUpperCase() { [native code] }/PublicSubnet1"
+                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-PROD/PublicSubnet1"
                       },
                       "PublicSubnet2": {
                         "id": "PublicSubnet2",
-                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-function toLocaleUpperCase() { [native code] }/PublicSubnet2"
+                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-PROD/PublicSubnet2"
                       },
                       "PrivateSubnet1": {
                         "id": "PrivateSubnet1",
-                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-function toLocaleUpperCase() { [native code] }/PrivateSubnet1"
+                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-PROD/PrivateSubnet1"
                       },
                       "PrivateSubnet2": {
                         "id": "PrivateSubnet2",
-                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-function toLocaleUpperCase() { [native code] }/PrivateSubnet2"
+                        "path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-PROD/PrivateSubnet2"
                       }
                     }
                   },
@@ -1552,7 +1552,7 @@
                                 "ipProtocol": "-1"
                               }
                             ],
-                            "vpcId": "vpc-12345"
+                            "vpcId": "vpc-0e7cee7f8110050a7"
                           }
                         }
                       }
@@ -1745,7 +1745,8 @@
                                   "Version": "2012-10-17"
                                 },
                                 "managedPolicyArns": [
-                                  "dfgsdfsd"
+                                  "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+                                  "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
                                 ]
                               }
                             }
@@ -1906,8 +1907,8 @@
                               "awsvpcConfiguration": {
                                 "assignPublicIp": "DISABLED",
                                 "subnets": [
-                                  "p-12345",
-                                  "p-67890"
+                                  "subnet-02c78b3a49b2d52c9",
+                                  "subnet-0a86c65f80529bd5e"
                                 ],
                                 "securityGroups": [
                                   {

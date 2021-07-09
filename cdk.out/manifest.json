@@ -784,20 +784,5 @@
         ]
       }
     }
-  },
-  "missing": [
-    {
-      "key": "vpc-provider:account=715757124801:filter.isDefault=false:filter.tag:Name=AIS-PROD:region=eu-central-1:returnAsymmetricSubnets=true",
-      "provider": "vpc-provider",
-      "props": {
-        "account": "715757124801",
-        "region": "eu-central-1",
-        "filter": {
-          "tag:Name": "AIS-PROD",
-          "isDefault": "false"
-        },
-        "returnAsymmetricSubnets": true
-      }
-    }
-  ]
+  }
 }

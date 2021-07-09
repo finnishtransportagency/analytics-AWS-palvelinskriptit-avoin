@@ -27,7 +27,7 @@ export class ServiceStack extends cdk.Stack {
       vpcnamevariable = this.node.tryGetContext('vpclookupname-dev')
     }
 
-
+ 
     const vpc =  ec2.Vpc.fromLookup(this, vpcnamevariable ,{isDefault: false, vpcName: vpcnamevariable}
 )
     const ecsSG = new ec2.SecurityGroup(this, namingconvention+"-ecs-sg-outboundonly", {

@@ -11,7 +11,7 @@
             "IpProtocol": "-1"
           }
         ],
-        "VpcId": "vpc-12345"
+        "VpcId": "vpc-0e7cee7f8110050a7"
       },
       "Metadata": {
         "aws:cdk:path": "AIS-cicd-prod/prod/AIS-service-prod/AIS-prod-ecs-sg-outboundonly/Resource"
@@ -144,7 +144,8 @@
           "Version": "2012-10-17"
         },
         "ManagedPolicyArns": [
-          "dfgsdfsd"
+          "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+          "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
         ]
       },
       "Metadata": {
@@ -271,8 +272,8 @@
               }
             ],
             "Subnets": [
-              "p-12345",
-              "p-67890"
+              "subnet-02c78b3a49b2d52c9",
+              "subnet-0a86c65f80529bd5e"
             ]
           }
         },
