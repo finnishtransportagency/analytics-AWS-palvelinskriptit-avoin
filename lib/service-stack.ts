@@ -3,8 +3,6 @@ import * as iam from '@aws-cdk/aws-iam';
 import * as ecs from '@aws-cdk/aws-ecs';
 import { LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
 import * as ec2 from '@aws-cdk/aws-ec2';
-import * as Etargets from '@aws-cdk/aws-events-targets';
-import { Rule, Schedule } from '@aws-cdk/aws-events';
 import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
 import * as ssm from '@aws-cdk/aws-ssm';
 import { Stack, StackProps } from '@aws-cdk/core';
@@ -86,6 +84,6 @@ ecsService.autoScaleTaskCount({ maxCapacity: 1 }).scaleOnCpuUtilization('CpuScal
   targetUtilizationPercent: 80
 });
 
-    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"fulls3access",""))
-
+    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"fulls3access","dfgsdfsd"))
+    taskdef.taskRole.addManagedPolicy(ManagedPolicy.fromManagedPolicyArn(this,"secretmanageraccess","dfgsdfsd"))
 }}

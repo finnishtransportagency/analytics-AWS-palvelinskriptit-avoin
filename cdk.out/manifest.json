@@ -1,0 +1,788 @@
+{
+  "version": "9.0.0",
+  "artifacts": {
+    "assembly-AIS-cicd-prod-prod": {
+      "type": "cdk:cloud-assembly",
+      "properties": {
+        "directoryName": "assembly-AIS-cicd-prod-prod",
+        "displayName": "AIS-cicd-prod/prod"
+      }
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "AIS-cicd-prod.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AIS-cicd-prod.assets.json",
+        "requiresBootstrapStackVersion": 4,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AIS-cicd-prod": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://715757124801/eu-central-1",
+      "properties": {
+        "templateFile": "AIS-cicd-prod.template.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::715757124801:role/cdk-hnb659fds-deploy-role-715757124801-eu-central-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::715757124801:role/cdk-hnb659fds-cfn-exec-role-715757124801-eu-central-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-715757124801-eu-central-1/23c5229cdd3edb98cce4d8bcdd50ed0062cb2f3f26428f1e44563d2903a62990.json",
+        "requiresBootstrapStackVersion": 4,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AIS-cicd-prod.assets"
+        ]
+      },
+      "dependencies": [
+        "AIS-cicd-prod.assets"
+      ],
+      "metadata": {
+        "/AIS-cicd-prod/SsmParameterValue:--AIS--prod--phase0--secretmanager:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueAISprodphase0secretmanagerC96584B6F00A464EAD1953AFF4B05118Parameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:328:9)",
+              "Function.valueForTypedStringParameter (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:398:17)",
+              "Function.valueForStringParameter (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:381:28)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:39:50)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/ArtifactsBucketEncryptionKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketEncryptionKeyF5BF0670",
+            "trace": [
+              "new Key (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-kms/lib/key.ts:427:22)",
+              "new Pipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:261:25)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:163:24)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/ArtifactsBucketEncryptionKeyAlias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketEncryptionKeyAlias94A07392",
+            "trace": [
+              "new Alias (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-kms/lib/alias.ts:198:22)",
+              "new Pipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:267:9)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:163:24)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketAEA9A052",
+            "trace": [
+              "new Bucket (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:1326:22)",
+              "new Pipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:274:21)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:163:24)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineRoleB27FAA37",
+            "trace": [
+              "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "new Pipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:285:31)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:163:24)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineRoleDefaultPolicy7BDC1ABB",
+            "trace": [
+              "new Policy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Function.addToPrincipal (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/grant.ts:168:61)",
+              "Function.addToPrincipalOrResource (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/grant.ts:119:26)",
+              "Bucket.grant (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:726:27)",
+              "Bucket.grantReadWrite (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:650:17)",
+              "new Pipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:301:25)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:163:24)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Pipeline9850B417",
+            "trace": [
+              "new Pipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:289:26)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:163:24)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Source/GitHub/WebhookResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineSourceGitHubWebhookResource6A219987",
+            "trace": [
+              "GitHubSourceAction.bound (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/github/source-action.ts:132:7)",
+              "GitHubSourceAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/action.ts:63:17)",
+              "RichAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:413:37)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:182:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Build/Synth/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCodePipelineActionRole4E7A6C97",
+            "trace": [
+              "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "Pipeline.getRoleForAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:580:20)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:407:29)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:189:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Build/Synth/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCodePipelineActionRoleDefaultPolicy92C90290",
+            "trace": [
+              "new Policy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Role.addToPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:376:17)",
+              "CodeBuildAction.bound (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/codebuild/build-action.ts:156:18)",
+              "CodeBuildAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/action.ts:63:17)",
+              "SimpleSynthAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/synths/simple-synth-action.ts:373:25)",
+              "RichAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:413:37)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:189:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProjectRole231EEA2A",
+            "trace": [
+              "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:801:31)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "SimpleSynthAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/synths/simple-synth-action.ts:339:21)",
+              "RichAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:413:37)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:189:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProjectRoleDefaultPolicyFB6C941C",
+            "trace": [
+              "new Policy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Role.addToPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:376:17)",
+              "PipelineProject.addToRolePolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:225:17)",
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:898:10)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "SimpleSynthAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/synths/simple-synth-action.ts:339:21)",
+              "RichAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:413:37)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:189:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProject6BEFA8E6",
+            "trace": [
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:854:22)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "SimpleSynthAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/synths/simple-synth-action.ts:339:21)",
+              "RichAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:413:37)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:189:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleD6D4E5CF",
+            "trace": [
+              "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "Pipeline.getRoleForAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:580:20)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:407:29)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:196:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Pipeline/UpdatePipeline/SelfMutate/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicyE626265B",
+            "trace": [
+              "new Policy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Role.addToPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:376:17)",
+              "CodeBuildAction.bound (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/codebuild/build-action.ts:156:18)",
+              "CodeBuildAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/action.ts:63:17)",
+              "UpdatePipelineAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/actions/update-pipeline-action.ts:108:24)",
+              "RichAction.bind (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:413:37)",
+              "Stage.attachActionToPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:141:27)",
+              "Stage.addAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:91:29)",
+              "new Stage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:38:12)",
+              "Pipeline.addStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:336:19)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:196:22)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/UpdatePipeline/SelfMutation/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationRole57E559E8",
+            "trace": [
+              "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:801:31)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "new UpdatePipelineAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/actions/update-pipeline-action.ts:59:33)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:198:19)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E",
+            "trace": [
+              "new Policy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Role.addToPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:376:17)",
+              "PipelineProject.addToRolePolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:225:17)",
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:898:10)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "new UpdatePipelineAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/actions/update-pipeline-action.ts:59:33)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:198:19)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/UpdatePipeline/SelfMutation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationDAA41400",
+            "trace": [
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:854:22)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "new UpdatePipelineAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/actions/update-pipeline-action.ts:59:33)",
+              "new CdkPipeline (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:198:19)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:52:22)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Assets/DockerRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsDockerRole8BB4542E",
+            "trace": [
+              "new Role (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:327:18)",
+              "AssetPublishing.generateAssetRole (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:463:23)",
+              "AssetPublishing.addPublishAssetAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:412:12)",
+              "CdkStage.publishAssetDependencies (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:259:19)",
+              "CdkStage.addStackArtifactDeployment (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:115:10)",
+              "CdkStage.addApplication (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:105:14)",
+              "CdkPipeline.addApplicationStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:249:11)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:70:36)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Assets/DockerRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsDockerRoleDefaultPolicy8B63511D",
+            "trace": [
+              "new Policy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:368:28)",
+              "Role.addToPolicy (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:376:17)",
+              "AssetPublishing.generateAssetRole (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:475:15)",
+              "AssetPublishing.addPublishAssetAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:412:12)",
+              "CdkStage.publishAssetDependencies (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:259:19)",
+              "CdkStage.addStackArtifactDeployment (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:115:10)",
+              "CdkStage.addApplication (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:105:14)",
+              "CdkPipeline.addApplicationStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:249:11)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:70:36)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/Pipeline/Assets/DockerAsset1/Default/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsDockerAsset1D66D1104",
+            "trace": [
+              "new Project (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:854:22)",
+              "new PipelineProject (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "new PublishAssetsAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/actions/publish-assets-action.ts:105:21)",
+              "AssetPublishing.addPublishAssetAction (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:438:51)",
+              "CdkStage.publishAssetDependencies (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:259:19)",
+              "CdkStage.addStackArtifactDeployment (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:115:10)",
+              "CdkStage.addApplication (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/stage.ts:105:14)",
+              "CdkPipeline.addApplicationStage (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/pipeline.ts:249:11)",
+              "new CICDStack (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:70:36)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:19:1)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Module.m._compile (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "main (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (internal/modules/cjs/loader.js:1158:30)",
+              "Object.Module._extensions..js (internal/modules/cjs/loader.js:1178:10)",
+              "Module.load (internal/modules/cjs/loader.js:1002:32)",
+              "Function.Module._load (internal/modules/cjs/loader.js:901:14)",
+              "Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:74:12)",
+              "internal/main/run_main_module.js:18:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:51:24)",
+              "/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:140:5",
+              "visit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:200:5)",
+              "visit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:196:5)",
+              "injectMetadataResources (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:131:3)",
+              "Object.synthesize (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:188:23)",
+              "process.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:123:45)",
+              "Object.onceWrapper (events.js:418:26)",
+              "process.emit (events.js:311:20)",
+              "process.EventEmitter.emit (domain.js:482:12)",
+              "process.emit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:495:21)",
+              "process.topLevelDomainCallback (domain.js:137:15)"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:555:17)",
+              "DefaultStackSynthesizer.synthesize (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:378:7)",
+              "/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:29",
+              "visit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:200:5)",
+              "visit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:196:5)",
+              "synthesizeTree (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:150:3)",
+              "Object.synthesize (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "App.synth (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:188:23)",
+              "process.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:123:45)",
+              "Object.onceWrapper (events.js:418:26)",
+              "process.emit (events.js:311:20)",
+              "process.EventEmitter.emit (domain.js:482:12)",
+              "process.emit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:495:21)",
+              "process.topLevelDomainCallback (domain.js:137:15)"
+            ]
+          }
+        ],
+        "/AIS-cicd-prod/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:565:3)",
+              "DefaultStackSynthesizer.synthesize (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:378:7)",
+              "/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:29",
+              "visit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:200:5)",
+              "visit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:196:5)",
+              "synthesizeTree (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:150:3)",
+              "Object.synthesize (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "App.synth (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:188:23)",
+              "process.<anonymous> (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:123:45)",
+              "Object.onceWrapper (events.js:418:26)",
+              "process.emit (events.js:311:20)",
+              "process.EventEmitter.emit (domain.js:482:12)",
+              "process.emit (/home/ossi/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:495:21)",
+              "process.topLevelDomainCallback (domain.js:137:15)"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

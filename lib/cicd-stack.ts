@@ -6,7 +6,6 @@ import { CdkPipeline, SimpleSynthAction,ShellScriptAction } from '@aws-cdk/pipel
 import * as ca from '@aws-cdk/aws-codepipeline-actions'
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as ssm from '@aws-cdk/aws-ssm';
-import * as codecommit from '@aws-cdk/aws-codecommit';
 import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
 
 
@@ -41,22 +40,23 @@ export class CICDStack extends Stack {
       
     const pipeSecretmanager = secretsmanager.Secret.fromSecretArn(this, namingconvention + "-secretmanager", secretmanagerARN)
 
-    codecommit.Repository.fromRepositoryArn
-    var branch = "d"
+   var branch = "d"
     if (environment == "prod") {
       branch = "AIS"
     } else {
       branch = "AIS-"+environment
     }
 
+
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       pipelineName: namingconvention + '-Pipeline', cloudAssemblyArtifact,
       sourceAction: new ca.GitHubSourceAction({
         actionName: 'GitHub',
         output: sourceArtifact,
-        oauthToken: pipeSecretmanager.secretValueFromJson('github-token'),
+        oauthToken: pipeSecretmanager.secretValueFromJson('gittoken'),
         owner: this.node.tryGetContext('gitowner'),
         repo: this.node.tryGetContext('githubrepo'),
+        branch: branch
     }),
       synthAction: SimpleSynthAction.standardNpmSynth({
         sourceArtifact,
