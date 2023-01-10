@@ -5,3 +5,4 @@ import { SecretcdkStack } from '../lib/secretcdk-stack';
 
 const app = new cdk.App();
 new SecretcdkStack(app, 'AIS-secrets-prod');
+new SecretcdkStack(app, 'AIS-secrets-dev');

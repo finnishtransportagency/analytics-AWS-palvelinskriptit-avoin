@@ -28,7 +28,12 @@ interface ServiceStackProps extends cdk.StackProps {
 export class CICDStack extends Stack {
   constructor(scope: Construct, id: string, props: ServiceStackProps) {
     super(scope, id, props);
-    const environment = id.split("-")[2]
+    const { accountId, region } = new cdk.ScopedAws(this);
+    //TODO Tuotantoon pitää tehdä parameter käsin ennen deploymenttiä
+    //const environment = ssm.StringParameter.valueForStringParameter(
+      //this, '/phase0/environment');
+    const environment = (accountId == "715757124801" ? "prod" : (accountId == "593223377027") ? "dev" : "undefined")
+    
     const appname = id.split("-")[0]
     const namingpath = '/' + appname + '/' + environment
     const namingconvention = appname + "-" + environment
