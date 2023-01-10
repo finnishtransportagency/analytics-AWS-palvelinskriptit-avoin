@@ -10,9 +10,11 @@ import { VPCStack } from '../lib/vpc-stack';
 
 
 const app = new cdk.App();
-const envEU  = { account: app.node.tryGetContext('prodaccountid'), region: 'eu-central-1' };
+const { accountId, region } = new cdk.ScopedAws(app);
+const environment = (accountId == "715757124801" ? "prod" : (accountId == "593223377027") ? "dev" : "undefined")
+const envEU  = { account: accountId, region: region };
 //new SecretsStack(app, 'AIS-secrets-prod', {env:envEU});
 //const vpcdev=new VPCStack(app, 'AIS-vpc-prod',{  env:envEU} ); provided by account
-new CICDStack(app, 'AIS-cicd-prod', {env:envEU
+new CICDStack(app, 'AIS-cicd-'+environment, {env:envEU
      });
 
