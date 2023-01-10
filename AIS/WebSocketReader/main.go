@@ -27,7 +27,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//var addr = flag.String("addr", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data")
 var rawList = rawStructList{}
 var parsedList = parsedStructList{}
 var s3bucket = "aistestbucket"
@@ -840,7 +839,7 @@ func startConnect() {
 	log.SetFlags(0)
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
-	u := url.URL{Scheme: "wss", Host: host, Path: "raw-and-parsed-data", RawQuery: queryString}
+	u := url.URL{Scheme: "wss", Host: host, Path: "ais/raw-and-parsed-data", RawQuery: queryString}
 	log.Printf("connecting to Server")
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), customHeader)
 	if err != nil {
