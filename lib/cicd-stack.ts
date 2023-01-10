@@ -2,11 +2,12 @@ import { ServiceStack } from './service-stack';
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import { Construct, Stage, Stack, StackProps, StageProps } from '@aws-cdk/core';
-import { CdkPipeline, SimpleSynthAction,ShellScriptAction, ShellScriptActionProps } from '@aws-cdk/pipelines';
+import * as pipelines from '@aws-cdk/pipelines';
 import * as ca from '@aws-cdk/aws-codepipeline-actions'
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as ssm from '@aws-cdk/aws-ssm';
 import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
+import { CodeCommitSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 
 
 interface stageprops extends StageProps {
@@ -51,30 +52,26 @@ export class CICDStack extends Stack {
     } else {
       branch = "AIS-"+environment
     }
-    const shellScriptActionProps: ShellScriptActionProps = {
-      actionName: 'actionName',
-      commands: ['npm i -g npm@global']}
-    const shellaction = new ShellScriptAction(shellScriptActionProps);
 
-    const pipeline = new CdkPipeline(this, 'Pipeline', {
-      pipelineName: namingconvention + '-Pipeline', cloudAssemblyArtifact,
-      sourceAction: new ca.GitHubSourceAction({
-        actionName: 'GitHub',
-        output: sourceArtifact,
-        oauthToken: pipeSecretmanager.secretValueFromJson('gittoken'),
-        owner: this.node.tryGetContext('gitowner'),
-        repo: this.node.tryGetContext('githubrepo'),
-        branch: branch
-    }),
-      synthAction: SimpleSynthAction.standardNpmSynth({
-        sourceArtifact,
-        cloudAssemblyArtifact,
+    const modernPipeline = new pipelines.CodePipeline(this, 'Pipeline', {
+      selfMutation: true,
+      synth: new pipelines.ShellStep('Synth', {
+        input: pipelines.CodePipelineSource.gitHub(
+          this.node.tryGetContext('gitowner')+"/"+this.node.tryGetContext('githubrepo'),
+          branch,
+          {authentication:pipeSecretmanager.secretValueFromJson('gittoken')}),
+        installCommands: ['npm i -g npm@latest'],
+        commands: [
+          'npm ci',
+          'npm run build',
+          'npx cdk synth',
+        ],
       }),
     });
 
     // This can be done to as many accounts and regions, however in this design we are following gitflow where each branch has own pipeline and we build everytime
 
-   const predeployStage = pipeline.addApplicationStage(new ApplicationStageR(this, environment, {
+   const predeployStage = modernPipeline.addStage(new ApplicationStageR(this, environment, {
       env: props.env,
       environment: environment,
       appname:appname
