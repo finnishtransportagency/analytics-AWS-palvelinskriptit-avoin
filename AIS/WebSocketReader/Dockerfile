@@ -1,5 +1,5 @@
 ##build executable binary
-FROM golang@sha256:1a5f8b6db670a7776ce5beeb69054a7cf7047a5d83176d39b94665a54cfb9756 as builder
+FROM public.ecr.aws/bitnami/golang:1.19.4 as builder
 ARG branch=master
 # Install git + SSL ca certificates.
 RUN apk add git
