@@ -5,12 +5,15 @@ import { Ec2Service } from '@aws-cdk/aws-ecs';
 import { CICDStack } from '../lib/cicd-stack';
 import { ServiceStack } from '../lib/service-stack';
 import { VPCStack } from '../lib/vpc-stack';
+import * as iam from '@aws-cdk/aws-iam';
 
 
 
 
 const app = new cdk.App();
-const { accountId, region } = new cdk.ScopedAws(app);
+const accountId = process.env.CDK_DEFAULT_ACCOUNT;
+const region = process.env.CDK_DEFAULT_REGION;
+//const { accountId, region } = new cdk.ScopedAws(app);
 const environment = (accountId == "715757124801" ? "prod" : (accountId == "593223377027") ? "dev" : "undefined")
 const envEU  = { account: accountId, region: region };
 //new SecretsStack(app, 'AIS-secrets-prod', {env:envEU});
