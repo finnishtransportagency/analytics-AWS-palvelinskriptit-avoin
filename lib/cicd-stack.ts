@@ -32,7 +32,7 @@ export class CICDStack extends Stack {
     //TODO Tuotantoon pitää tehdä parameter käsin ennen deploymenttiä
     //const environment = ssm.StringParameter.valueForStringParameter(
       //this, '/phase0/environment');
-    const environment = (accountId == "715757124801" ? "prod" : (accountId == "593223377027") ? "dev" : "undefined")
+    const environment = id.split("-")[2] //(accountId == "715757124801" ? "prod" : (accountId == "593223377027") ? "dev" : "undefined")
     
     const appname = id.split("-")[0]
     const namingpath = '/' + appname + '/' + environment
