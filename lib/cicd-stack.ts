@@ -2,7 +2,7 @@ import { ServiceStack } from './service-stack';
 import * as cdk from '@aws-cdk/core';
 import * as ec2 from '@aws-cdk/aws-ec2';
 import { Construct, Stage, Stack, StackProps, StageProps } from '@aws-cdk/core';
-import { CdkPipeline, SimpleSynthAction,ShellScriptAction } from '@aws-cdk/pipelines';
+import { CdkPipeline, SimpleSynthAction,ShellScriptAction, ShellScriptActionProps } from '@aws-cdk/pipelines';
 import * as ca from '@aws-cdk/aws-codepipeline-actions'
 import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as ssm from '@aws-cdk/aws-ssm';
@@ -51,7 +51,10 @@ export class CICDStack extends Stack {
     } else {
       branch = "AIS-"+environment
     }
-
+    const shellScriptActionProps: ShellScriptActionProps = {
+      actionName: 'actionName',
+      commands: ['npm i -g npm@global']}
+    const shellaction = new ShellScriptAction(shellScriptActionProps);
 
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       pipelineName: namingconvention + '-Pipeline', cloudAssemblyArtifact,
