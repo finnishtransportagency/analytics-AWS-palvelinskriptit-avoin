@@ -27,7 +27,6 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//var addr = flag.String("addr", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data", "wss://haproxy.liikennevirasto.fi:3005/public-parsed-data")
 var rawList = rawStructList{}
 var parsedList = parsedStructList{}
 var s3bucket = "aistestbucket"
@@ -147,9 +146,9 @@ func StoragePathAndFileNaming(parsed bool) string {
 	currentTime := time.Now()
 	var dateSaltprefix = currentTime.Format("2006/01/02") + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + randomHex() + "AIS.json.gz"
 	if parsed == true {
-		s3prefix = "test/parsed/" + dateSaltprefix
+		s3prefix = "parsed/" + dateSaltprefix
 	} else {
-		s3prefix = "test/raw/" + dateSaltprefix
+		s3prefix = "raw/" + dateSaltprefix
 	}
 	return s3prefix
 }
