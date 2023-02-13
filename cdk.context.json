@@ -41,8 +41,8 @@
         ]
       }
     ]
-<<<<<<< HEAD
-=======
+
+
   },
   "vpc-provider:account=593223377027:filter.isDefault=false:filter.tag:Name=AIS-dev:filter.vpc-id=vpc-039c7364c3f657b5b:region=eu-central-1:returnAsymmetricSubnets=true": {
     "vpcId": "vpc-039c7364c3f657b5b",
@@ -74,6 +74,6 @@
         ]
       }
     ]
->>>>>>> AIS-dev
+
   }
 }
