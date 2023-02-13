@@ -4,7 +4,6 @@ import * as cdk from '@aws-cdk/core';
 import { Ec2Service } from '@aws-cdk/aws-ecs';
 import { CICDStack } from '../lib/cicd-stack';
 import { ServiceStack } from '../lib/service-stack';
-import { VPCStack } from '../lib/vpc-stack';
 import * as iam from '@aws-cdk/aws-iam';
 
 
