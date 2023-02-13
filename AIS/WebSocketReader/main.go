@@ -38,6 +38,8 @@ var upassword = "pass"
 var messagelimit = 30000
 var bucketRegion = "eu-central-1"
 var host = "host"
+var delimiter = "$"
+var pair_delimiter = "|"
 
 const errorfloat = 1000000
 
@@ -290,14 +292,14 @@ func parsedDataprocessLogic(parsedData string, test bool) bool {
 ParsedMessageObjectConverter converts string to Parsedmessage object
 */
 func ParsedMessageObjectConverter(parsedData string) ParsedMessage {
-	var splittedData = strings.Split(parsedData, "|")
+	var splittedData = strings.Split(parsedData, pair_delimiter)
 	var newParsedMessage = ParsedMessage{}
 	newParsedMessage = matchingloop(newParsedMessage, splittedData, &parsedData)
 	return newParsedMessage
 }
 
 func getsplittedFloatValue(keyvaluepair string) (float32, error) {
-	var splittedpair = strings.Split(keyvaluepair, "§")
+	var splittedpair = strings.Split(keyvaluepair, delimiter)
 	if len(splittedpair) != 2 {
 		return 0, errors.New("Failed to parse float value")
 	}
@@ -312,7 +314,7 @@ func getsplittedFloatValue(keyvaluepair string) (float32, error) {
 }
 
 func getsplittedStringValue(keyvaluepair string) (string, error) {
-	var splittedpair = strings.SplitN(keyvaluepair, "§", 3)
+	var splittedpair = strings.SplitN(keyvaluepair, delimiter, 3)
 	if len(splittedpair[1]) > 0 {
 		return splittedpair[1], nil
 	}
@@ -321,7 +323,7 @@ func getsplittedStringValue(keyvaluepair string) (string, error) {
 }
 
 func getsplittedStringKey(keyvaluepair string) (string, error) {
-	var splittedpair = strings.SplitN(keyvaluepair, "§", 2)
+	var splittedpair = strings.SplitN(keyvaluepair, delimiter, 2)
 	if len(splittedpair[0]) > 0 {
 		return splittedpair[0], nil
 	}
@@ -690,7 +692,7 @@ which we try to match and import to ships dimension structure and return it
 */
 func GetDimensions(keyvaluepair string) (ShipDimensions, error) {
 	var newDimensions = ShipDimensions{}
-	var splittedpair = strings.Split(keyvaluepair, "§")
+	var splittedpair = strings.Split(keyvaluepair, delimiter)
 	if len(splittedpair) != 2 {
 		return newDimensions, errors.New("failed to split dimension keyvalue pair")
 	}
@@ -751,7 +753,7 @@ func givedimensionvalue(dimL string) (int, error) {
 }
 
 func getsplittedIntegerValue(keyvaluepair string) (int, error) {
-	var splittedpair = strings.Split(keyvaluepair, "§")
+	var splittedpair = strings.Split(keyvaluepair, delimiter)
 	if len(splittedpair) != 2 {
 		return -1, errors.New("failed to split integer keyvalue pair: ")
 	}
@@ -759,7 +761,7 @@ func getsplittedIntegerValue(keyvaluepair string) (int, error) {
 }
 
 func getsplittedInteger64Value(keyvaluepair string) (int64, error) {
-	var splittedpair = strings.Split(keyvaluepair, "§")
+	var splittedpair = strings.Split(keyvaluepair, delimiter)
 	if len(splittedpair) != 2 {
 		return -1, errors.New("failed to split integer keyvalue pair")
 	}
