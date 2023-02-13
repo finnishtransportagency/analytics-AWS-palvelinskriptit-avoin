@@ -145,9 +145,9 @@ func StoragePathAndFileNaming(parsed bool) string {
 	currentTime := time.Now()
 	var dateSaltprefix = currentTime.Format("2006/01/02") + "/" + strconv.FormatInt(time.Now().UnixNano(), 10) + randomHex() + "AIS.json.gz"
 	if parsed == true {
-		s3prefix = "parsed/" + dateSaltprefix
+		s3prefix = "test/parsed/" + dateSaltprefix
 	} else {
-		s3prefix = "raw/" + dateSaltprefix
+		s3prefix = "test/raw/" + dateSaltprefix
 	}
 	return s3prefix
 }

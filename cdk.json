@@ -14,7 +14,7 @@
     "@aws-cdk/aws-efs:defaultEncryptionAtRest": true,
     "vpcname":"AIS",
     "vpclookupname-dev": "AIS-dev",
-    "vpcid-dev":"1" ,
+    "vpcid-dev":"vpc-039c7364c3f657b5b" ,
     "vpcid-prod":"vpc-0e7cee7f8110050a7",
     "vpclookupname-prod": "AIS-PROD",
     "clustername":"AIS",
@@ -22,6 +22,6 @@
     "gitowner": "finnishtransportagency",
     "branch": "AIS",
     "prodaccountid": "715757124801",
-    "devaccountid": "none"
+    "devaccountid": "593223377027"
   }
 }
