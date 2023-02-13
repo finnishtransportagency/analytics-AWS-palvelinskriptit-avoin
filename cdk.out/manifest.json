@@ -1,0 +1,628 @@
+{
+  "version": "21.0.0",
+  "artifacts": {
+    "assembly-AIS-cicd-dev-dev": {
+      "type": "cdk:cloud-assembly",
+      "properties": {
+        "directoryName": "assembly-AIS-cicd-dev-dev",
+        "displayName": "AIS-cicd-dev/dev"
+      }
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "AIS-cicd-dev.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AIS-cicd-dev.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AIS-cicd-dev": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://593223377027/eu-central-1",
+      "properties": {
+        "templateFile": "AIS-cicd-dev.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::593223377027:role/cdk-hnb659fds-deploy-role-593223377027-eu-central-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::593223377027:role/cdk-hnb659fds-cfn-exec-role-593223377027-eu-central-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-593223377027-eu-central-1/adfffed786e9002cd023c433df0e11724d5c87c36604d1de7c382bdfdc5ca2f0.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AIS-cicd-dev.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::593223377027:role/cdk-hnb659fds-lookup-role-593223377027-eu-central-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "AIS-cicd-dev.assets"
+      ],
+      "metadata": {
+        "/AIS-cicd-dev/SsmParameterValue:--AIS--dev--phase0--secretmanager:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SsmParameterValueAISdevphase0secretmanagerC96584B6F00A464EAD1953AFF4B05118Parameter",
+            "trace": [
+              "Function.fromStringParameterAttributes (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:354:9)",
+              "Function.valueForTypedStringParameter (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:425:17)",
+              "Function.valueForStringParameter (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-ssm/lib/parameter.ts:408:28)",
+              "new CICDStack (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/lib/cicd-stack.ts:44:50)",
+              "Object.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/bin/aisreader.ts:21:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1165:14)",
+              "Module.m._compile (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:858:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1219:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/index.ts:861:12)",
+              "Module.load (node:internal/modules/cjs/loader:1043:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:878:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:227:14)",
+              "Object.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/ts-node/src/bin.ts:513:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1165:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1219:10)",
+              "Module.load (node:internal/modules/cjs/loader:1043:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:878:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:22:47"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketAEA9A052",
+            "trace": [
+              "new Bucket (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:1676:22)",
+              "new Pipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:414:21)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:361:24)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineArtifactsBucketPolicyF53CCC52",
+            "trace": [
+              "new BucketPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket-policy.ts:53:21)",
+              "Bucket.addToResourcePolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:605:21)",
+              "Bucket.enforceSSLStatement (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:1813:10)",
+              "new Bucket (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:1719:12)",
+              "new Pipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:414:21)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:361:24)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineRoleB27FAA37",
+            "trace": [
+              "new Role (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:381:18)",
+              "new Pipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:426:31)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:361:24)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineRoleDefaultPolicy7BDC1ABB",
+            "trace": [
+              "new Policy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:431:28)",
+              "Function.addToPrincipal (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/grant.ts:164:61)",
+              "Function.addToPrincipalOrResource (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/grant.ts:115:26)",
+              "Bucket.grant (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:917:27)",
+              "Bucket.grantReadWrite (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-s3/lib/bucket.ts:775:17)",
+              "new Pipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:443:25)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:361:24)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Pipeline9850B417",
+            "trace": [
+              "new Pipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:430:25)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:361:24)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Source/finnishtransportagency_analytics-AWS-palvelinskriptit-avoin/WebhookResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineSourcefinnishtransportagencyanalyticsAWSpalvelinskriptitavoinWebhookResource51B49D3F",
+            "trace": [
+              "GitHubSourceAction.bound (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/github/source-action.ts:132:7)",
+              "GitHubSourceAction.bind (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/action.ts:413:17)",
+              "RichAction.bind (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:554:37)",
+              "Stage.attachActionToPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:159:27)",
+              "Stage.addAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:97:29)",
+              "GitHubSource.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline-source.ts:137:11)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProjectRole231EEA2A",
+            "trace": [
+              "new Role (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:381:18)",
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1020:31)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProjectRoleDefaultPolicyFB6C941C",
+            "trace": [
+              "new Policy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:431:28)",
+              "PipelineProject.addToRolePolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:290:17)",
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1119:10)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Pipeline/Build/Synth/CdkBuildProject/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineBuildSynthCdkBuildProject6BEFA8E6",
+            "trace": [
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1073:22)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/CodeBuildActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineCodeBuildActionRole226DB0CB",
+            "trace": [
+              "new Role (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:381:18)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:332:10)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/CodeBuildActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineCodeBuildActionRoleDefaultPolicy1D62A6FE",
+            "trace": [
+              "new Policy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:431:28)",
+              "Role.addToPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:445:17)",
+              "CodeBuildAction.bound (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline-actions/lib/codebuild/build-action.ts:166:18)",
+              "CodeBuildAction.bind (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/action.ts:413:17)",
+              "RichAction.bind (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/rich-action.ts:30:24)",
+              "Pipeline._attachActionToPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/pipeline.ts:554:37)",
+              "Stage.attachActionToPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:159:27)",
+              "Stage.addAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codepipeline/lib/private/stage.ts:97:29)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:338:11)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/UpdatePipeline/SelfMutation/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationRole57E559E8",
+            "trace": [
+              "new Role (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:381:18)",
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1020:31)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "Object.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:170:32)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/UpdatePipeline/SelfMutation/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationRoleDefaultPolicyA225DA4E",
+            "trace": [
+              "new Policy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "Role.addToPrincipalPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:431:28)",
+              "PipelineProject.addToRolePolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:290:17)",
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1119:10)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "Object.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:170:32)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/UpdatePipeline/SelfMutation/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineUpdatePipelineSelfMutationDAA41400",
+            "trace": [
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1073:22)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "Object.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:170:32)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Assets/DockerRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsDockerRole8BB4542E",
+            "trace": [
+              "new Role (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:381:18)",
+              "new AssetSingletonRole (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/private/asset-singleton-role.ts:16:5)",
+              "CodePipeline.obtainAssetCodeBuildRole (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:828:23)",
+              "CodePipeline.publishAssetsAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:681:23)",
+              "CodePipeline.actionFromNode (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:498:21)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:419:34)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Assets/DockerRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsDockerRoleDefaultPolicy8B63511D",
+            "trace": [
+              "new Policy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/policy.ts:154:22)",
+              "AssetSingletonRole.addToPrincipalPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:431:28)",
+              "AssetSingletonRole.addToPrincipalPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/private/asset-singleton-role.ts:83:18)",
+              "AssetSingletonRole.addToPolicy (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-iam/lib/role.ts:445:17)",
+              "new AssetSingletonRole (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/private/asset-singleton-role.ts:19:10)",
+              "CodePipeline.obtainAssetCodeBuildRole (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:828:23)",
+              "CodePipeline.publishAssetsAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:681:23)",
+              "CodePipeline.actionFromNode (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:498:21)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:419:34)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/Pipeline/Assets/DockerAsset1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PipelineAssetsDockerAsset1D66D1104",
+            "trace": [
+              "new Project (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/project.ts:1073:22)",
+              "new PipelineProject (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/aws-codebuild/lib/pipeline-project.ts:14:5)",
+              "CodeBuildFactory.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:294:21)",
+              "Object.produceAction (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/private/codebuild-factory.ts:170:32)",
+              "CodePipeline.pipelineStagesAndActionsFromGraph (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:428:36)",
+              "CodePipeline.doBuildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/codepipeline/codepipeline.ts:377:10)",
+              "CodePipeline.buildPipeline (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:124:10)",
+              "CodePipeline.buildJustInTime (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:138:12)",
+              "Object.visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:73:46)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:110:14)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "recurse (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:125:9)",
+              "invokeAspects (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:95:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:16:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:463:17)",
+              "DefaultStackSynthesizer.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:397:7)",
+              "/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ],
+        "/AIS-cicd-dev/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:473:3)",
+              "DefaultStackSynthesizer.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:397:7)",
+              "/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "App.synth (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/stage.ts:180:23)",
+              "process.<anonymous> (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/@aws-cdk/core/lib/app.ts:131:45)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)",
+              "process.emit (node:domain:489:12)",
+              "process.emit (/home/johannes/git/analytics-AWS-palvelinskriptit-avoin/node_modules/source-map-support/source-map-support.js:516:21)"
+            ]
+          }
+        ]
+      },
+      "displayName": "AIS-cicd-dev"
+    }
+  }
+}

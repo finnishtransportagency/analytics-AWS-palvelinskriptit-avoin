@@ -840,7 +840,7 @@ func startConnect() {
 	log.SetFlags(0)
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
-	u := url.URL{Scheme: "wss", Host: host, Path: "raw-and-parsed-data", RawQuery: queryString}
+	u := url.URL{Scheme: "wss", Host: host, Path: "ais/raw-and-parsed-data", RawQuery: queryString}
 	log.Printf("connecting to Server")
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), customHeader)
 	if err != nil {
